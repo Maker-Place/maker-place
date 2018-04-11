@@ -6,9 +6,9 @@ import {
 } from 'react-router-dom';
 
 // Pages used in routes
-import HomePage from './Home/HomePage.js';
-import ClassesPage from './Classes/ClassesPage.js';
-import ClassPage from './Class/ClassPage'; 
+import HomePage from './components/Home/HomePage.js';
+import ClassesPage from './components/Classes/ClassesPage.js';
+import ClassPage from './components/Class/ClassPage'; 
 import './App.css';
 
 // This is where you define top level routes in the app mapping some url to a given page component
@@ -23,7 +23,7 @@ import './App.css';
 
 const App = () => (
   <Router>
-    <div> 
+    <div>
       <ul className="Nav">
         <li><Link to="/classes">Classes</Link></li>
       </ul>
