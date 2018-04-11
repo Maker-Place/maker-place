@@ -5,10 +5,13 @@ import {
   Link
 } from 'react-router-dom';
 
+
+
 // Pages used in routes
 import HomePage from './components/Home/HomePage.js';
 import ClassesPage from './components/Classes/ClassesPage.js';
 import ClassPage from './components/Class/ClassPage'; 
+import Nav from './components/Nav/';
 import './App.css';
 
 // This is where you define top level routes in the app mapping some url to a given page component
@@ -22,17 +25,20 @@ import './App.css';
 // )}/>
 
 const App = () => (
-  <Router>
-    <div>
-      <ul className="Nav">
-        <li><Link to="/classes">Classes</Link></li>
-      </ul>
-
-      <Route exact path="/" component={HomePage}/>
-      <Route exact path="/classes" component={ClassesPage} />
-      <Route path="/classes/:title" component={ClassPage} />
-    </div>
-  </Router>
+  <div>
+    <Nav/ >
+    <Router>
+      <div>
+        <ul className="Nav">
+          <li><Link to="/classes">Classes</Link></li>
+        </ul>
+    
+        <Route exact path="/" component={HomePage}/>
+        <Route exact path="/classes" component={ClassesPage} />
+        <Route path="/classes/:title" component={ClassPage} />
+      </div>
+    </Router>
+  </div>
 );
 
 export default App;

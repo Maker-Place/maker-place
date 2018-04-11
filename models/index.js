@@ -1,5 +1,6 @@
-module.exports = {
-    Book: require("./class")
-};
+// Exporting an object containing all of our models
 
-// Exporting an object containing all of our models 
+module.exports = {
+
+  Class: require("./Class")
+};
