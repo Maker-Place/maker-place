@@ -12,6 +12,7 @@ import HomePage from './components/Home/HomePage.js';
 import ClassesPage from './components/Classes/ClassesPage.js';
 import ClassPage from './components/Class/ClassPage'; 
 import Nav from './components/Nav/';
+import Scrape from './components/Scrape.js';
 import './App.css';
 
 // This is where you define top level routes in the app mapping some url to a given page component
@@ -36,8 +37,10 @@ const App = () => (
         <Route exact path="/" component={HomePage}/>
         <Route exact path="/classes" component={ClassesPage} />
         <Route path="/classes/:title" component={ClassPage} />
+       
       </div>
     </Router>
+     <Scrape/>
   </div>
 );
 
