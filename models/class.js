@@ -14,8 +14,7 @@ var mongoose = require("mongoose");
             required: true 
 
     },
-     
- 
+    
    category: {
              type: String,
              required: true 
