@@ -7,19 +7,19 @@
 // Add class data fields here:
 
 const ALL_CLASSES = [
-    // {
-    //   title: 'Pottery',
+    {
+      title: 'Pottery',
   
-    // },
-    // {
-    //   title: 'Welding'
-    // },
-    // {
-    //   title: 'Bongmaking'
-    // },
-    // {
-    //   title: 'Kungfu'
-    // },
+    },
+    {
+      title: 'Welding'
+    },
+    {
+      title: 'Bongmaking'
+    },
+    {
+      title: 'Kungfu'
+    },
     {
       title: 'Rollerblading',
       image_url: 'https://img-aws.ehowcdn.com/560x560/photos.demandstudios.com/getty/article/51/14/200268591-001.jpg',

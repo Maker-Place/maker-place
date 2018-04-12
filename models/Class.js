@@ -43,11 +43,6 @@ var ClassSchema = new Schema({
     required: false,
   },
 
-  registration: {
-    type: String,
-    required: false,
-  },
-
   classTimes: [
     {
       type: String,
@@ -67,8 +62,6 @@ var ClassSchema = new Schema({
   description: {
     type: String,
   }
-
-
 
 });
 
