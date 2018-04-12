@@ -6,8 +6,8 @@ const router = require("express").Router();
 
 // Matches with "/api/classes" 
  router.route("/")
-get(classesController.findAll)
-post(classesController.create);
+.get(classesController.findAll)
+.post(classesController.create);
 
 
  // Matches with "/api/books/:id" 
