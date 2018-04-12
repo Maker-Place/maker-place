@@ -3,22 +3,29 @@ import {Link} from 'react-router-dom';
 import {getAllClasses} from '../ClassData';
 
 export default class ClassesPage extends Component {
-    renderClassLink (title) {
-        let path = `/classes/${title}`;
+    renderClassLink (lesson) {
+        let path = `/classes/${lesson.title}`;
         return (
-            <div key={title}>
-                <Link to={path}>{title}</Link>
+            <div key={lesson.title}>
+
+                <div className="card">
+                    <Link to={path}>{lesson.title}</Link>
+                    <p>{lesson.description ? lesson.description :''}</p>
+
+                </div>
             </div>
         );
     }
 
     render () {
-        let classTitles = getAllClasses().map((c)=> c.title);
-        let links = classTitles.map(this.renderClassLink);
+        // get all the data for each class
+        let classTitles = getAllClasses();
+        // change to cards, passing the whole class object to the function
+        let cards = classTitles.map(this.renderClassLink);
         return (
             <div>
                 <h2>Here are all the classes!</h2>
-                {links}
+                {cards}
             </div>
         );
     }

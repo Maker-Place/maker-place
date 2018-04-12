@@ -1,7 +1,5 @@
-
-
 const router = require("express").Router();
- const classesController = require("../../controllers/classesController");
+const classesController = require("../../controllers/classesController");
 
 
 // Matches with "/api/classes" 
@@ -9,13 +7,11 @@ const router = require("express").Router();
 .get(classesController.findAll)
 .post(classesController.create);
 
-
  // Matches with "/api/books/:id" 
  // router 
  //   .route("/:id") 
  //   .get(booksController.findById) 
  //   .put(booksController.update) 
  //   .delete(booksController.remove); 
-
 
  module.exports = router; 

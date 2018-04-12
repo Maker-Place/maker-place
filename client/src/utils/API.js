@@ -4,7 +4,7 @@ export default {
   // Gets all books
   getClasses: function() {
     console.log('getClasses');
-    return axios.get("/api/classes");
+    return axios.get("/api/scrape");
   },
   
 };

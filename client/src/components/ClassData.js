@@ -9,16 +9,15 @@
 const ALL_CLASSES = [
     {
       title: 'Pottery',
-  
     },
     {
-      title: 'Welding'
+      title: 'Welding',
     },
     {
-      title: 'Bongmaking'
+      title: 'Bongmaking',
     },
     {
-      title: 'Kungfu'
+      title: 'Kungfu',
     },
     {
       title: 'Rollerblading',
