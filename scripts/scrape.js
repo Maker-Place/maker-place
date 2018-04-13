@@ -39,16 +39,24 @@ module.exports = function(req, res) {
 					};
 
 					// console.log(classes);
+					axios.post("http://localhost:3000/api/classes", classes)
+					.then(function(response) {
+						console.log("api/classes");
+						console.log(response.data);
+					})
+					.catch(function(err) {
+						console.log(err);
+					})
 
-					db.Class.create(classes)
-			    	.then(function(dbArticle) {
-			        	// View the added result in the console
-			        	console.log(dbArticle);
-			    	})
-			    	.catch(function(err) {
-			       		console.log("------------------------------------------------------------------------------");
-			       		console.log(err);
-			    	});
+					// db.Class.create(classes)
+			  //   	.then(function(dbArticle) {
+			  //       	// View the added result in the console
+			  //       	console.log(dbArticle);
+			  //   	})
+			  //   	.catch(function(err) {
+			  //      		console.log("------------------------------------------------------------------------------");
+			  //      		console.log(err);
+			  //   	});
 				
 					//if there are items left, do it again, otherwise send the data
 					
