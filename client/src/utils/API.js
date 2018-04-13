@@ -2,9 +2,9 @@ import axios from "axios";
 
 export default {
   // Gets all books
-  getClasses: function() {
-    console.log('getClasses');
+  getLessons: function() {
+    console.log('getLessons');
     return axios.get("/api/scrape");
   },
-  
+
 };

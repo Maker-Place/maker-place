@@ -27,7 +27,8 @@ module.exports = function(req, res) {
 
 			axios.get(links[count].link)
 			.then(function(response) {
-
+				
+				// the category page
 				var $ = cheerio.load(response.data);
 
 				getClasses($, count).then(function(response){
@@ -37,8 +38,18 @@ module.exports = function(req, res) {
 					for (var i = 0; i < classes.length; i++) {
 						classes[i].category = category;
 					};
+					
+					// can't figure out how to hit the controller route without absolute path
 
 					// console.log(classes);
+					// axios.post("http://localhost:3000/api/classes", classes)
+					// .then(function(response) {
+					// 	console.log("api/classes");
+					// 	console.log(response.data);
+					// })
+					// .catch(function(err) {
+					// 	console.log(err);
+					// })
 
 					db.Class.create(classes)
 			    	.then(function(dbArticle) {
@@ -49,8 +60,6 @@ module.exports = function(req, res) {
 			       		console.log("------------------------------------------------------------------------------");
 			       		console.log(err);
 			    	});
-				
-					//if there are items left, do it again, otherwise send the data
 					
 				});
 
