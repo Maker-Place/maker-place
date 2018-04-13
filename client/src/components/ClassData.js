@@ -8,7 +8,8 @@
 
 const ALL_CLASSES = [
     {
-      title: 'Pottery',
+    title: 'Pottery',
+    description: 'Welcome to MakerPlace! This class is the first step on your journey to become a bona-fide MakerPlace member. '
     },
     {
       title: 'Welding',
@@ -31,6 +32,8 @@ const ALL_CLASSES = [
     }
     // Add new classes here:
   ];
+
+
 
   // basic stub data access layer
   export function getAllClasses () {
