@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import API from '../utils/API';
 
-export default class ClassesPage extends Component {
-    getClassData = () => {
-        API.getClasses()
+export default class LessonsPage extends Component {
+    getLessonData = () => {
+        API.getLessons()
         .then(
             res => console.log(res)
         )
@@ -11,9 +11,9 @@ export default class ClassesPage extends Component {
     }
 
     render () {
-        
+
         return (
-            <button onClick={this.getClassData}>Scrape</button>
+            <button onClick={this.getLessonData}>Scrape</button>
         );
     }
 };

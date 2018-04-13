@@ -1,32 +1,30 @@
-
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 
-import {getClassByTitle} from '../ClassData';
+import {getLessonByTitle} from '../LessonData';
 
 // edit css for this page here:
-import './ClassPage.css';
+import './LessonPage.css';
 
-class ClassCard extends Component { 
+class ClassCard extends Component {
     render () {
         let {
-            title, 
-            image_url, 
+            title,
+            image_url,
             description,
             time,
             date
         } = this.props;
-        // if you want to add more class properties here, make sure you add them to ClassData.js
-
+        // if you want to add more class properties here, make sure you add them to LessonData.js
+        // i believe the above needs to be changed.
         // the above is shorthand for:
         // let title =this.props.title;
         // let image_url = this.props.image
-        //... 
-               
+        //...
+
         return (
             <div className="ClassCard">
                 <h2>Here is a class about {title}</h2>
-                <img src={image_url} />
+                <img alt="lesson" src={image_url} />
                 <div>Date: {date} Time: {time}</div>
                 <p>
                     {description}
@@ -35,15 +33,15 @@ class ClassCard extends Component {
         );
     }
 }
-//  
-export default class ClassPage extends Component {
+//
+export default class LessonPage extends Component {
     render () {
         let {title} = this.props.match.params;
-        let classData = getClassByTitle(title);
-       
+        let LessonData = getLessonByTitle(title);
+
         return (
             <div style={{padding: 10}}>
-                <ClassCard {...classData}/>
+                <ClassCard {...LessonData}/>
             </div>
         );
     }

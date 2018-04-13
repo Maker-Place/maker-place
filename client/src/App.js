@@ -5,12 +5,10 @@ import {
   Link
 } from 'react-router-dom';
 
-
-
 // Pages used in routes
 import HomePage from './components/Home/HomePage.js';
-import ClassesPage from './components/Classes/ClassesPage.js';
-import ClassPage from './components/Class/ClassPage'; 
+import LessonsPage from './components/Lessons/LessonsPage.js';
+import LessonPage from './components/Lesson/LessonPage';
 import Nav from './components/Nav/';
 import Scrape from './components/Scrape.js';
 import './App.css';
@@ -22,7 +20,7 @@ import './App.css';
 //
 // adding route with custom params:
 // <Route exact path="/classes" render={(props)=> (
-//   <ClassesPage {...props} classNames={CLASS_NAMES} />
+//   <LessonsPage {...props} classNames={CLASS_NAMES} />
 // )}/>
 
 const App = () => (
@@ -31,13 +29,13 @@ const App = () => (
     <Router>
       <div>
         <ul className="Nav">
-          <li><Link to="/classes">Classes</Link></li>
+          <li><Link to="/lessons">Lessons</Link></li>
         </ul>
-    
+
         <Route exact path="/" component={HomePage}/>
-        <Route exact path="/classes" component={ClassesPage} />
-        <Route path="/classes/:title" component={ClassPage} />
-       
+        <Route exact path="/lessons" component={LessonsPage} />
+        <Route path="/lessons/:title" component={LessonPage} />
+
       </div>
     </Router>
      <Scrape/>
