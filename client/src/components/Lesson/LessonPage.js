@@ -14,8 +14,10 @@ class ClassCard extends Component {
             time,
             date
         } = this.props;
+
         // if you want to add more class properties here, make sure you add them to LessonData.js
         // i believe the above needs to be changed.
+
         // the above is shorthand for:
         // let title =this.props.title;
         // let image_url = this.props.image
@@ -23,18 +25,21 @@ class ClassCard extends Component {
 
         return (
             <div className="ClassCard">
-                <h2>Here is a class about {title}</h2>
-                <img alt="lesson" src={image_url} />
-                <div>Date: {date} Time: {time}</div>
-                <p>
-                    {description}
-                </p>
+
+                <h2> {title}</h2>
+                <h3> {description}</h3>
+                <img src={image_url} />
+                <div>Date {date} </div>
+                <div>Time {time} </div>
+                
             </div>
         );
     }
 }
+
 //
 export default class LessonPage extends Component {
+
     render () {
         let {title} = this.props.match.params;
         let LessonData = getLessonByTitle(title);
