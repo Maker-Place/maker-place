@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import API from '../utils/API';
 
-export default class ClassesPage extends Component {
-    getClassData = () => {
-        //axios.get("/api/scrape")
-        API.getClasses()
+export default class LessonsPage extends Component {
+     //axios.get("/api/scrape")
+    getLessonData = () => {
+        API.getLessons()
+
         .then(
             res => {
                 console.log("react Scrape.js");
@@ -15,9 +16,9 @@ export default class ClassesPage extends Component {
     }
 
     render () {
-        
+
         return (
-            <button onClick={this.getClassData}>Scrape</button>
+            <button onClick={this.getLessonData}>Scrape</button>
         );
     }
 };
