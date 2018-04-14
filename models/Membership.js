@@ -6,17 +6,17 @@ var Schema = mongoose.Schema;
 // Using the Schema constructor, create a new UserSchema object
 // This is similar to a Sequelize model
 var MembershipSchema = new Schema ({
-  membership-type: {
+  membership_type: {
     type: String,
     required: true
   },
 
-  annual-cost: {
+  annual_cost: {
     type: String,
-    required: true
+    required: false
   },
 
-  monthly-cost: {
+  monthly_cost: {
     type: String,
     required: false
   },
