@@ -22,6 +22,7 @@ module.exports = function(req, res) {
 	    getCategory(count);
 		
 		// follow the link and get the list of classes
+		let categoriesGotten = 0;
 	    function getCategory(count) {
 	    	let category = links[count].category;
 
@@ -31,46 +32,71 @@ module.exports = function(req, res) {
 				// the category page
 				var $ = cheerio.load(response.data);
 
+				// gets all the classes from the category page
 				getClasses($, count).then(function(response){
 
 					let classes = response;
-
-					for (var i = 0; i < classes.length; i++) {
-						classes[i].category = category;
-					};
 					
-					// can't figure out how to hit the controller route without absolute path
+					if (response) {
+						//add the category to each class object
+						for (var i = 0; i < classes.length; i++) {
+							classes[i].category = category;
+						};
 
-					// console.log(classes);
+						
+						// can't figure out how to hit the controller route without absolute path
 
-					// axios.post("http://localhost:3000/api/classes", classes)
-					// .then(function(response) {
-					// 	console.log("api/classes");
-					// 	console.log(response.data);
-					// })
-					// .catch(function(err) {
-					// 	console.log(err);
-					// })
+						// console.log(classes);
 
-					db.Class.create(classes)
-			    	.then(function(dbArticle) {
-			        	// View the added result in the console
-			        	console.log(dbArticle);
-			    	})
-			    	.catch(function(err) {
-			       		console.log("------------------------------------------------------------------------------");
-			       		console.log(err);
-			    	});
-					
+						// axios.post("http://localhost:3000/api/classes", classes)
+						// .then(function(response) {
+						// 	console.log("api/classes");
+						// 	console.log(response.data);
+						// })
+						// .catch(function(err) {
+						// 	console.log(err);
+						// })
+						
+						// check if the class exists in the db
+						for (let i = 0; i < classes.length; i++) {
+							db.Class.find({"url": classes[i].url}).limit(1)
+							.then(function(found) {
+							// add all the classes to the database
+								if (!found) {
+									db.Class.create(classes)
+							    	.then(function(dbArticle) {
+										//increment categoriesGotten
+							        	categoriesGotten++;
+							        	console.log(categoriesGotten);
+							        	//if we've gotten as many categories as there are links, send done
+							        	if (categoriesGotten === links.length) {
+							    			res.json("done");
+							    		}
+							    	})
+							    	.catch(function(err) {
+							       		console.log("------------------------------------------------------------------------------");
+							       		console.log(err);
+							    	});
+						    	} else {
+						    		console.log('already exists');
+						    	}
+						    });
+					    }
+
+
+			    	} else {
+			    		// if there were no classes in the category, increment and check if done
+			    		categoriesGotten++;
+			    		if (categoriesGotten === links.length) {
+			    			res.json("done");
+			    		}
+			    	}
 				});
 
 				count++;
 				if (count < links.length) {
 					getCategory(count);
-				} else {
-					res.json(links);
 				}
-
 
 	    	})
 	    	.catch(function(err) {
@@ -82,7 +108,8 @@ module.exports = function(req, res) {
 		let getClasses = ($, count) => new Promise(
 			(resolve,reject) => {
 				var classLinks = [];
-
+				
+				//get all the class links
 				$(".eventModuleItem").each(function(i,element) {
 
 					var link = $(this).find(".itemTitleContainer").find("a").attr("href");
@@ -92,15 +119,13 @@ module.exports = function(req, res) {
 
 				});
 
-
 				let classCount = 0,
 				classes = [];
 
-				getClassData(classCount) // need to wait for this to finish to get all class data before running getClasses
+				getClassData(classCount);
 				
 				function getClassData(count) {
 
-					
 					if (classLinks[count]) {
 						axios.get(classLinks[count])
 						.then(function(response) {
@@ -115,11 +140,10 @@ module.exports = function(req, res) {
 							var spacesLeft = $(".eventInfoSpacesLeft").children(".eventInfoBoxValue").children("span").html();
 							var classTimes = [];
 							var registrationOptions = [];
+							var url = classLinks[count];
 							// not getting data
 							var registerLink = $(".boxActionContainer .inner a").attr("href");
-
 							var description = $(".gadgetEventEditableArea").html();
-
 							//strip out the html
 							description = description.replace(/<(?:.|\n)*?>/gm, '');
 							//replace any number of spaces at the beginning of the string with an open <p> tag
@@ -152,7 +176,8 @@ module.exports = function(req, res) {
 								classTimes,
 								registrationOptions,
 								registerLink,
-								description
+								description,
+								url
 							});
 
 							count++;
@@ -165,10 +190,12 @@ module.exports = function(req, res) {
 						.catch(function(err) {
 							console.log(err);
 						})
+					} else {
+						//if there were no classes
+						resolve();
 					}
 		    	}
 			}
 		);
-	
 	});
 }

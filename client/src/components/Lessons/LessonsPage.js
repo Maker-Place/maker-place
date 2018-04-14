@@ -9,11 +9,26 @@ import {
   GridTileTitle,
   GridTileTitleSupportText
 } from 'rmwc/GridList';
+import API from '../../utils/API';
 
 import {getAllLessons} from '../LessonData';
 import './LessonsPage.css';
 
 class LessonsPage extends Component {
+    getLessonData = () => {
+        API.getLessons()
+        .then(
+            res => {
+                console.log("react Scrape.js");
+                console.log(res);
+            }
+        )
+        .catch(err => console.log(err));
+    }
+    componentDidMount() {
+        console.log("getting lesson data");
+        this.getLessonData();
+    }
     // see: 5. Use Arrow Function in Class Property on this page:
     // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
     openLessonPage = (lesson)=> {
