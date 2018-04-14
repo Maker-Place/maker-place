@@ -9,16 +9,17 @@ module.exports = {
    
   },
   create: function(req, res) {
-    db.Class.create({"title": "hi", "category": "hi"})
-    .then(function(dbArticle) {
-        // View the added result in the console
-        console.log(dbArticle);
-        res.json("create");
-    })
-    .catch(function(err) {
-        console.log("------------------------------------------------------------------------------");
-        res.json(err);
-    });
+    res.send("create class")
+    // db.Class.create({"title": "hi", "category": "hi"})
+    // .then(function(dbArticle) {
+    //     // View the added result in the console
+    //     console.log(dbArticle);
+    //     res.json("create");
+    // })
+    // .catch(function(err) {
+    //     console.log("------------------------------------------------------------------------------");
+    //     res.json(err);
+    // });
   },
   update: function(req, res) {
   

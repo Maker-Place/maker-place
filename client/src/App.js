@@ -11,7 +11,6 @@ import LessonsPage from './components/Lessons/LessonsPage.js';
 import LessonPage from './components/Lesson/LessonPage';
 import MembershipsPage from './components/Memberships/MembershipsPage';
 import Nav from './components/Nav/';
-import Scrape from './components/Scrape.js';
 import './App.css';
 
 // This is where you define top level routes in the app mapping some url to a given page component
@@ -39,7 +38,6 @@ const App = () => (
           </div>
         </div>
     </Router>
-     <Scrape/>
   </div>
 );
 
