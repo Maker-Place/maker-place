@@ -4,11 +4,11 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-
+import logo from './images/MakerPlace-Logo.jpg';
 
 const Nav = () => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-     <a className="navbar-brand" href="#"><img src="../../assets/images/MakerPlace_Logo.jpg" alt="MakerPlace"/></a>
+     <a className="navbar-brand" href="#"><img src={logo} alt="MakerPlace"/></a>
      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
        <span className="navbar-toggler-icon"></span>
      </button>
