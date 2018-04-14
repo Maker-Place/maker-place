@@ -1,4 +1,5 @@
 import React from 'react';
+import './Memberships.css';
 
 const Memberships = () => (
     <div className="membership-page">
@@ -8,7 +9,7 @@ const Memberships = () => (
             <p>Corporate and family memberships are available in person at MakerPlace.
 			   Military, student, and senior citizen (55+) discounts available with a valid ID for 
 			   the "Month to Month" membership level only.
-			</p>
+		      	</p>
           </div>
         </div>
     </div>
