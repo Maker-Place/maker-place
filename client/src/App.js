@@ -10,7 +10,6 @@ import HomePage from './components/Home/HomePage.js';
 import LessonsPage from './components/Lessons/LessonsPage.js';
 import LessonPage from './components/Lesson/LessonPage';
 import Nav from './components/Nav/';
-import Scrape from './components/Scrape.js';
 import './App.css';
 
 // This is where you define top level routes in the app mapping some url to a given page component
@@ -38,7 +37,6 @@ const App = () => (
 
       </div>
     </Router>
-     <Scrape/>
   </div>
 );
 
