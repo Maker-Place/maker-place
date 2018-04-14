@@ -76,5 +76,5 @@ var ClassSchema = new Schema({
 // This creates our model from the above schema, using mongoose's model method
 var Class = mongoose.model("Class", ClassSchema);
 
-// Export the Article model
+// Export the Membership model
 module.exports = Class;
