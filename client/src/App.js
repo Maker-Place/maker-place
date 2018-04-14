@@ -9,6 +9,7 @@ import {
 import HomePage from './components/Home/HomePage.js';
 import LessonsPage from './components/Lessons/LessonsPage.js';
 import LessonPage from './components/Lesson/LessonPage';
+import MembershipsPage from './components/Memberships/MembershipsPage';
 import Nav from './components/Nav/';
 import './App.css';
 
@@ -24,18 +25,18 @@ import './App.css';
 
 const App = () => (
   <div>
-    <Nav/ >
     <Router>
       <div>
-        <ul className="Nav">
-          <li><Link to="/lessons">Lessons</Link></li>
-        </ul>
+        <Nav/ >
+          <div>
 
-        <Route exact path="/" component={HomePage}/>
-        <Route exact path="/lessons" component={LessonsPage} />
-        <Route path="/lessons/:title" component={LessonPage} />
+            <Route exact path="/" component={HomePage}/>
+            <Route exact path="/lessons" component={LessonsPage} />
+            <Route path="/lessons/:title" component={LessonPage} />
+            <Route path="/memberships" component={MembershipsPage} />
 
-      </div>
+          </div>
+        </div>
     </Router>
   </div>
 );
