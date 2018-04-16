@@ -39,7 +39,7 @@ export default class LessonPage extends Component {
                         ? 
                         (<div> Class Times:
                             <ul>
-                            {this.state.lesson.classTimes.map(each => (<li>{each}</li>))}
+                            {this.state.lesson.classTimes.map((each, i) => (<li key={i}>{each}</li>))}
                             </ul>
                         </div>)
                             : <div>Start Time: {this.state.lesson.startTime}</div>
@@ -50,7 +50,7 @@ export default class LessonPage extends Component {
                     <div>Register Link:{this.state.lesson.registerLink}</div>
                     <div>Location: {this.state.lesson.location}</div>
                     <div>Register Options:{this.state.lesson.registrationOptions}</div>
-                    <a class="btn btn-primary" target="_blank" href={this.state.lesson.registerLink}>Register</a>
+                    <a className="btn btn-primary" target="_blank" href={this.state.lesson.registerLink}>Register</a>
                     
                 </div>
             </div>
