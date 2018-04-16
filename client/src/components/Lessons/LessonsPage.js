@@ -29,6 +29,7 @@ class LessonsPage extends Component {
               <GridTilePrimary>
                 <GridTilePrimaryContent>
                   <img src={image_url} alt="test" />
+                  
                 </GridTilePrimaryContent>
               </GridTilePrimary>
               <GridTileSecondary theme="text-primary-on-primary">
