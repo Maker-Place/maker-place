@@ -10,23 +10,48 @@ import {
   GridTileTitleSupportText
 } from 'rmwc/GridList';
 import API from '../../utils/API';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 
 import {getAllLessons} from '../LessonData';
 import './LessonsPage.css';
 
 class LessonsPage extends Component {
-    getLessonData = () => {
-        API.getLessons()
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        done: '',
+        lessons: []
+      };
+    }
+    scrapeLessonData = () => {
+        API.scrapeLessons("callback function")
         .then(
+            // res is "done"
+            
             res => {
-                console.log("react Scrape.js");
-                console.log(res);
+                this.setState({done: res.data});
             }
         )
         .catch(err => console.log(err));
     }
+    getLessonData = () => {
+        API.getLessons("Software").
+        then(response => {
+          let lessons = response.data;
+          this.setState({lessons: lessons})
+        })
+        .catch(err => console.log(err));
+    }
+
+
     componentDidMount() {
         console.log("getting lesson data");
+        this.scrapeLessonData();
         this.getLessonData();
     }
     // see: 5. Use Arrow Function in Class Property on this page:
@@ -39,8 +64,12 @@ class LessonsPage extends Component {
 
     renderClassTile = (lesson)=> {
         let image_url = lesson.image_url || 'https://material-components-web.appspot.com/images/1-1.jpg';
+        // deconstruct the data
+        let {_id, title, startTime, startDate} = lesson;
         return (
-            <GridTile className="LessonTile" key={lesson.title} onClick={()=> {this.openLessonPage(lesson)}}>
+          // link to /lessons/:id
+          <Link to={"/lesson/" + _id} key={_id}>
+            <GridTile className="LessonTile">
               <GridTilePrimary>
                 <GridTilePrimaryContent>
                   <img src={image_url} alt="test" />
@@ -48,34 +77,25 @@ class LessonsPage extends Component {
                 </GridTilePrimaryContent>
               </GridTilePrimary>
               <GridTileSecondary theme="text-primary-on-primary">
-                <GridTileTitle>{lesson.title}</GridTileTitle>
-                <GridTileTitleSupportText>{lesson.date} {lesson.time}</GridTileTitleSupportText>
+                <GridTileTitle>{title}</GridTileTitle>
+                <GridTileTitleSupportText>{startDate} {startTime}</GridTileTitleSupportText>
               </GridTileSecondary>
             </GridTile>
+          </Link>
         );
     }
-
-
-    // <div key={lesson.title}>
-    //
-    //     <div className="card">
-    //         <Link to={path}>{}</Link>
-    //         {lesson.description ? <p>{lesson.description} </p> : null}
-    //         {lesson.Date ? <p>{lesson.Date} </p> : null}
-    //         {lesson.Time ? <p>{lesson.Time} </p> : null}
-    //     </div>
-    // </div>
 
     render () {
         // get all the data for each class
         //putting the p tag inside allows it to not have an empty space if there
         // is no date  //
-        let allClasses = getAllLessons();
+        let allLessons = getAllLessons();
         // change to cards, passing the whole class object to the function
-        let tiles = allClasses.map(this.renderClassTile);
+        let tiles = this.state.lessons.map(this.renderClassTile);
         return (
             <div>
                 <h2>Here are all the classes!</h2>
+                
                 <GridList
                   tileGutter1={true}
                   headerCaption={false}

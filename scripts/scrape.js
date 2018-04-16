@@ -2,7 +2,7 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 var db = require("../models");
 
-module.exports = function(req, res) {
+var scrape = function(addToDB) {
 	
   // First, we grab the body of the html with request
 	axios.get("http://makerplace.com/classes").then(function(response) {
@@ -43,44 +43,20 @@ module.exports = function(req, res) {
 							classes[i].category = category;
 						};
 
+							
+						categoriesGotten++;
+
+						// it's the last category
 						
-						// can't figure out how to hit the controller route without absolute path
-
-						// console.log(classes);
-
-						// axios.post("http://localhost:3000/api/classes", classes)
-						// .then(function(response) {
-						// 	console.log("api/classes");
-						// 	console.log(response.data);
-						// })
-						// .catch(function(err) {
-						// 	console.log(err);
-						// })
 						
 						// check if the class exists in the db
 						for (let i = 0; i < classes.length; i++) {
-							db.Class.find({"url": classes[i].url}).limit(1)
-							.then(function(found) {
-							// add all the classes to the database
-								if (!found) {
-									db.Class.create(classes)
-							    	.then(function(dbArticle) {
-										//increment categoriesGotten
-							        	categoriesGotten++;
-							        	console.log(categoriesGotten);
-							        	//if we've gotten as many categories as there are links, send done
-							        	if (categoriesGotten === links.length) {
-							    			res.json("done");
-							    		}
-							    	})
-							    	.catch(function(err) {
-							       		console.log("------------------------------------------------------------------------------");
-							       		console.log(err);
-							    	});
-						    	} else {
-						    		console.log('already exists');
-						    	}
-						    });
+							// if it's the last class of the last category
+							if ((categoriesGotten === links.length) && (i === (classes.length - 1))) {
+				    			addToDB(classes[i], true);
+				    		} else {
+								addToDB(classes[i], false);
+							}
 					    }
 
 
@@ -88,7 +64,7 @@ module.exports = function(req, res) {
 			    		// if there were no classes in the category, increment and check if done
 			    		categoriesGotten++;
 			    		if (categoriesGotten === links.length) {
-			    			res.json("done");
+			    			// res.json("done");
 			    		}
 			    	}
 				});
@@ -199,3 +175,5 @@ module.exports = function(req, res) {
 		);
 	});
 }
+
+module.exports = scrape;
