@@ -9,8 +9,8 @@ import {
 import HomePage from './components/Home/HomePage.js';
 import LessonsPage from './components/Lessons/LessonsPage.js';
 import LessonPage from './components/Lesson/LessonPage';
+import MembershipsPage from './components/Memberships/MembershipsPage';
 import Nav from './components/Nav/';
-import Scrape from './components/Scrape.js';
 import './App.css';
 
 // This is where you define top level routes in the app mapping some url to a given page component
@@ -25,20 +25,19 @@ import './App.css';
 
 const App = () => (
   <div>
-    <Nav/ >
     <Router>
       <div>
-        <ul className="Nav">
-          <li><Link to="/lessons">Lessons</Link></li>
-        </ul>
+        <Nav/ >
+          <div>
 
-        <Route exact path="/" component={HomePage}/>
-        <Route exact path="/lessons" component={LessonsPage} />
-        <Route path="/lessons/:title" component={LessonPage} />
+            <Route exact path="/" component={HomePage}/>
+            <Route exact path="/lessons" component={LessonsPage} />
+            <Route path="/lessons/:title" component={LessonPage} />
+            <Route path="/memberships" component={MembershipsPage} />
 
-      </div>
+          </div>
+        </div>
     </Router>
-     <Scrape/>
   </div>
 );
 
