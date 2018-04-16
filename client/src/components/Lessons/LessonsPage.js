@@ -79,6 +79,29 @@ class LessonsPage extends Component {
     history.push(path);
   }
 
+  renderClassTile = (lesson) => { 
+    let image_url = lesson.image_url || 'https://material-components-web.appspot.com/images/1-1.jpg'; 
+    // deconstruct the data 
+    let { _id, title, startTime, startDate } = lesson; 
+    return ( 
+      // link to /lessons/:id 
+      <Link to={"/lesson/" + _id} key={_id}> 
+        <GridTile className="LessonTile"> 
+          <GridTilePrimary> 
+            <GridTilePrimaryContent> 
+              <img src={image_url} alt="test" /> 
+ 
+            </GridTilePrimaryContent> 
+          </GridTilePrimary> 
+          <GridTileSecondary theme="text-primary-on-primary"> 
+            <GridTileTitle>{title}</GridTileTitle> 
+            <GridTileTitleSupportText>{startDate} {startTime}</GridTileTitleSupportText> 
+          </GridTileSecondary> 
+        </GridTile> 
+      </Link> 
+    ); 
+  } 
+
 
     renderCategoryTile = (category) => {
       let image_url ='https://material-components-web.appspot.com/images/1-1.jpg';
