@@ -14,9 +14,9 @@ export default class LessonPage extends Component {
             <div style={{ padding: 10 }}>
                 <div className="ClassCard">
                     <h2> {props.title}</h2>
-                    <div>Category {props.category}</div>
+                    <div>Category{props.category}</div>
                     <div> {props.description}</div>
-                    <img src={props.image_url} />
+                    <img alt="" src={props.image_url} />
                     <div>Start Date:{props.startdate ? props.startdate : props.classTimes.join(',')}</div>
                      {/* if statment in here to show if starttime.length >1 then show that otherwise  */}
                     <div>Start Time: {props.starttime} </div>
