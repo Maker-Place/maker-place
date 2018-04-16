@@ -13,27 +13,21 @@ module.exports = {
       res.json(data);
     })
   },  
+
   findById: function(req, res) {
-    console.log(req.params.id);
     db.Class
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       
       .catch(err => res.status(422).json(err));
   },
-  create: function(req, res) {
-    res.send("create class")
-    // db.Class.create({"title": "hi", "category": "hi"})
-    // .then(function(dbArticle) {
-    //     // View the added result in the console
-    //     console.log(dbArticle);
-    //     res.json("create");
-    // })
-    // .catch(function(err) {
-    //     console.log("------------------------------------------------------------------------------");
-    //     res.json(err);
-    // });
+
+  findAllCategories: function(req, res) {
+    db.Class.distinct('category')
+    .then(categories => res.json(categories))
+    .catch(err => res.json(err));
   },
+
   update: function(req, res) {
   
   },

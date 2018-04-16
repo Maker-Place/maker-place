@@ -7,8 +7,12 @@ export default {
     return axios.get("/api/lessons", data);
   },
 
-  getLessons: function(category) {
+  getLessonsByCategory: function(category) {
   	return axios.get("/api/lessons/" + category);
+  },
+
+  getAllCategories: function() {
+    return axios.get("/api/lessons/categories")
   },
 
   getLessonById: function(id) {
