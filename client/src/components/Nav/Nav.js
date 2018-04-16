@@ -8,7 +8,7 @@ import './Nav.css';
 
 
 const Nav = () => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav className="navbar navbar-expand-md navbar-dark bg-dark">
 
      <a className="navbar-brand" href="#"><img src={process.env.PUBLIC_URL + '/assets/images/MakerPlace_VersionB.svg'} alt="MakerPlace"/></a>
 

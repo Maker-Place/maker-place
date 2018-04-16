@@ -40,7 +40,7 @@ class LessonsPage extends Component {
         .catch(err => console.log(err));
     }
     getLessonData = () => {
-        API.getLessons("Software").
+        API.getLessons("Events").
         then(response => {
           let lessons = response.data;
           this.setState({lessons: lessons})
