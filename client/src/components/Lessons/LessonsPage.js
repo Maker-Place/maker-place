@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   GridList,
   GridTile,
@@ -16,7 +16,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import {getAllLessons} from '../LessonData';
+import { getAllLessons } from '../LessonData';
 import './LessonsPage.css';
 
 class LessonsPage extends Component {
@@ -70,28 +70,38 @@ class LessonsPage extends Component {
     //   history.push(path);
     // }
 
-    renderClassTile = (lesson)=> {
-        let image_url = lesson.image_url || 'https://material-components-web.appspot.com/images/1-1.jpg';
-        // deconstruct the data
-        let {_id, title, startTime, startDate} = lesson;
-        return (
-          // link to /lessons/:id
-          <Link to={"/lesson/" + _id} key={_id}>
-            <GridTile className="LessonTile">
-              <GridTilePrimary>
-                <GridTilePrimaryContent>
-                  <img src={image_url} alt="test" />
-                  
-                </GridTilePrimaryContent>
-              </GridTilePrimary>
-              <GridTileSecondary theme="text-primary-on-primary">
-                <GridTileTitle>{title}</GridTileTitle>
-                <GridTileTitleSupportText>{startDate} {startTime}</GridTileTitleSupportText>
-              </GridTileSecondary>
-            </GridTile>
-          </Link>
-        );
-    }
+
+  // see: 5. Use Arrow Function in Class Property on this page:
+  // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
+  openLessonPage = (lesson) => {
+    let { history } = this.props;
+    let path = `/lessons/${lesson.title}`;
+    history.push(path);
+  }
+
+  renderClassTile = (lesson) => { 
+    let image_url = lesson.image_url || 'https://material-components-web.appspot.com/images/1-1.jpg'; 
+    // deconstruct the data 
+    let { _id, title, startTime, startDate } = lesson; 
+    return ( 
+      // link to /lessons/:id 
+      <Link to={"/lesson/" + _id} key={_id}> 
+        <GridTile className="LessonTile"> 
+          <GridTilePrimary> 
+            <GridTilePrimaryContent> 
+              <img src={image_url} alt="test" /> 
+ 
+            </GridTilePrimaryContent> 
+          </GridTilePrimary> 
+          <GridTileSecondary theme="text-primary-on-primary"> 
+            <GridTileTitle>{title}</GridTileTitle> 
+            <GridTileTitleSupportText>{startDate} {startTime}</GridTileTitleSupportText> 
+          </GridTileSecondary> 
+        </GridTile> 
+      </Link> 
+    ); 
+  } 
+
 
     renderCategoryTile = (category) => {
       let image_url ='https://material-components-web.appspot.com/images/1-1.jpg';
@@ -131,7 +141,7 @@ class LessonsPage extends Component {
                   withIconAlignStart={false}
                   tileAspect="1x1"
                 >
-              {/* if there are lessons, show the lessons, otherwise show the categories */}
+                {/* if there are lessons, show the lessons, otherwise show the categories */}
                 {this.state.lessons.length ? tiles : categories}
           
                 </GridList>
@@ -140,6 +150,7 @@ class LessonsPage extends Component {
             </div>
         );
     }
+
 }
 
 export default withRouter(LessonsPage);

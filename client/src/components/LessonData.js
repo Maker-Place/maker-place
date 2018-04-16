@@ -81,9 +81,6 @@ const ALL_LESSONS = [{
   // Add new lessons here:
 ];
 
-const Registration = [{
-  memberregistration: ""
-}]
 
 // basic stub data access layer
 export function getAllLessons() {
