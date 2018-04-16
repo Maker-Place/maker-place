@@ -18,10 +18,11 @@ export default class LessonPage extends Component {
     }
     getLesson = id => {
         API.getLessonById(id)
-            .then(response => {
-                this.setState({ lesson: response.data }, () => console.log(this.state.lesson));
-            })
-            .catch(err => console.log(err));
+
+        .then(response => {
+            this.setState({lesson: response.data}, () => console.log(this.state.lesson));
+        })
+        .catch(err => console.log(err));
     }
 
     render() {
@@ -30,27 +31,28 @@ export default class LessonPage extends Component {
                 <div className="ClassCard">
                     <h2> {this.state.lesson.title}</h2>
                     <div>Category: {this.state.lesson.category}</div>
-                    <div dangerouslySetInnerHTML={{ __html: this.state.lesson.description }}></div>
+
+                    <div dangerouslySetInnerHTML={{__html: this.state.lesson.description}}></div>
                     <img src={this.state.lesson.image_url} />
                     <div>Start Date: {this.state.lesson.startDate} </div>
 
-                    {this.state.lesson.classTimes
-                        ?
+                    {this.state.lesson.classTimes 
+                        ? 
                         (<div> Class Times:
                             <ul>
-                                {this.state.lesson.classTimes.map(each => (<li>{each}</li>))}
+                            {this.state.lesson.classTimes.map((each, i) => (<li key={i}>{each}</li>))}
                             </ul>
                         </div>)
-                        : <div>Start Time: {this.state.lesson.startTime}</div>
-
-                    }
-
-                    {/* if statment in here to show if starttime.length >1 then show that otherwise  */}
+                            : <div>Start Time: {this.state.lesson.startTime}</div>
+                         
+                        }
+                   
+                     {/* if statment in here to show if starttime.length >1 then show that otherwise  */}
                     <div>Register Link:{this.state.lesson.registerLink}</div>
                     <div>Location: {this.state.lesson.location}</div>
                     <div>Register Options:{this.state.lesson.registrationOptions}</div>
-                    <a class="btn btn-primary" target="_blank" href={this.state.lesson.registerLink}>Register</a>
-
+                    <a className="btn btn-primary" target="_blank" href={this.state.lesson.registerLink}>Register</a>
+                    
                 </div>
             </div>
         );

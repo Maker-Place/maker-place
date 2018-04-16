@@ -1,7 +1,7 @@
-/* The membership page background image */
-.membership-image {
+/* The hero image */
+.homepage-image {
   /* The image used */
-  background-image: url(membership_page_background.jpg);
+  background-image: url("https://images.unsplash.com/photo-1463082459669-fd1ca1692fea?ixlib=rb-0.3.5&s=c5c76553f649464a7a4208b64b15d5da&auto=format&fit=crop&w=1050&q=80");
   /* Set a specific height */
   height: 100vh;
   /* Position and center the image to scale nicely on all screens */
@@ -11,21 +11,10 @@
   position: relative; }
 
 /* Place text in the middle of the image */
-.membership-text {
-  margin-top: -10.0rem;
+.homepage-text {
   text-align: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white; }
-
-.card-body {
-  background-color: white;
-  /*background-opacity:*/ }
-
-.card-title {
-  color: grey; }
-
-.card-text {
-  color: grey; }
