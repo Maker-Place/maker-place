@@ -2,12 +2,13 @@ const router = require("express").Router();
 const Lessons = require("../../controllers/Lessons");
 const fetch = require("../../controllers/Fetch")
 
-// Matches with "/api/classes"
+// Matches with "/api/lessons"
 router.route("/")
   .get(fetch.scrapeClasses)
-  .post(Lessons.create);
 
-// Matches with "/api/lessons/categories/category"
+// Matches with "/api/lessons/category"
+router.route("/categories")
+  .get(Lessons.findAllCategories);
 router
   .route("/:category")
   .get(Lessons.findByCategory);
