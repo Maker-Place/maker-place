@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   GridList,
   GridTile,
@@ -10,71 +10,127 @@ import {
   GridTileTitleSupportText
 } from 'rmwc/GridList';
 import API from '../../utils/API';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 
-import {getAllLessons} from '../LessonData';
+import { getAllLessons } from '../LessonData';
 import './LessonsPage.css';
 
 class LessonsPage extends Component {
-    getLessonData = () => {
-        API.getLessons()
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        done: '',
+        lessons: [],
+        categories: []
+      };
+    }
+    scrapeLessonData = () => {
+        API.scrapeLessons("callback function")
         .then(
             res => {
-                console.log("react Scrape.js");
-                console.log(res);
+                this.setState({done: res.data});
             }
         )
         .catch(err => console.log(err));
     }
+
+    getLessonData = (category) => {
+      API.getLessonsByCategory(category).
+      then(response => {
+        let lessons = response.data;
+        this.setState({lessons: lessons})
+      })
+      .catch(err => console.log(err));
+    }
+
+    componentWillReceiveProps(newProps) {
+      this.getLessonData(newProps.match.params.category);
+    }
+
     componentDidMount() {
-        console.log("getting lesson data");
-        this.getLessonData();
+        this.scrapeLessonData();
+        //if there's a category, get the lessons
+        if (this.props.match.params.category) {
+          this.getLessonData(this.props.match.params.category);
+        }
     }
     // see: 5. Use Arrow Function in Class Property on this page:
     // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
-    openLessonPage = (lesson)=> {
-      let {history} = this.props;
-      let path = `/lessons/${lesson.title}`;
-      history.push(path);
-    }
+    // openLessonPage = (lesson)=> {
+    //   let {history} = this.props;
+    //   let path = `/lessons/${lesson.title}`;
+    //   history.push(path);
+    // }
 
-    renderClassTile = (lesson)=> {
-        let image_url = lesson.image_url || 'https://material-components-web.appspot.com/images/1-1.jpg';
+
+  // see: 5. Use Arrow Function in Class Property on this page:
+  // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
+  openLessonPage = (lesson) => {
+    let { history } = this.props;
+    let path = `/lessons/${lesson.title}`;
+    history.push(path);
+  }
+
+  renderClassTile = (lesson) => { 
+    let image_url = lesson.image_url || 'https://material-components-web.appspot.com/images/1-1.jpg'; 
+    // deconstruct the data 
+    let { _id, title, startTime, startDate } = lesson; 
+    return ( 
+      // link to /lessons/:id 
+      <Link to={"/lesson/" + _id} key={_id}> 
+        <GridTile className="LessonTile"> 
+          <GridTilePrimary> 
+            <GridTilePrimaryContent> 
+              <img src={image_url} alt="test" /> 
+ 
+            </GridTilePrimaryContent> 
+          </GridTilePrimary> 
+          <GridTileSecondary theme="text-primary-on-primary"> 
+            <GridTileTitle>{title}</GridTileTitle> 
+            <GridTileTitleSupportText>{startDate} {startTime}</GridTileTitleSupportText> 
+          </GridTileSecondary> 
+        </GridTile> 
+      </Link> 
+    ); 
+  } 
+
+
+    renderCategoryTile = (category) => {
+      let image_url ='https://material-components-web.appspot.com/images/1-1.jpg';
         return (
-            <GridTile className="LessonTile" key={lesson.title} onClick={()=> {this.openLessonPage(lesson)}}>
-              <GridTilePrimary>
+        
+          <Link to={"/lessons/" + category} key={category}>
+            <GridTile className="LessonTile">
+             <GridTilePrimary>
                 <GridTilePrimaryContent>
                   <img src={image_url} alt="test" />
+                  
                 </GridTilePrimaryContent>
               </GridTilePrimary>
               <GridTileSecondary theme="text-primary-on-primary">
-                <GridTileTitle>{lesson.title}</GridTileTitle>
-                <GridTileTitleSupportText>{lesson.date} {lesson.time}</GridTileTitleSupportText>
+                <GridTileTitle>{category}</GridTileTitle>
               </GridTileSecondary>
             </GridTile>
-        );
+          </Link>
+        )
     }
-
-
-    // <div key={lesson.title}>
-    //
-    //     <div className="card">
-    //         <Link to={path}>{}</Link>
-    //         {lesson.description ? <p>{lesson.description} </p> : null}
-    //         {lesson.Date ? <p>{lesson.Date} </p> : null}
-    //         {lesson.Time ? <p>{lesson.Time} </p> : null}
-    //     </div>
-    // </div>
 
     render () {
         // get all the data for each class
         //putting the p tag inside allows it to not have an empty space if there
         // is no date  //
-        let allClasses = getAllLessons();
         // change to cards, passing the whole class object to the function
-        let tiles = allClasses.map(this.renderClassTile);
+        let tiles = this.state.lessons.map(this.renderClassTile);
+        let categories = this.props.categories ? this.props.categories.map(this.renderCategoryTile) : "";
         return (
             <div>
                 <h2>Here are all the classes!</h2>
+                
                 <GridList
                   tileGutter1={true}
                   headerCaption={false}
@@ -82,11 +138,16 @@ class LessonsPage extends Component {
                   withIconAlignStart={false}
                   tileAspect="1x1"
                 >
-                  {tiles}
+                {/* if there are lessons, show the lessons, otherwise show the categories */}
+                {this.state.lessons.length ? tiles : categories}
+          
                 </GridList>
+
+
             </div>
         );
     }
+
 }
 
 export default withRouter(LessonsPage);
