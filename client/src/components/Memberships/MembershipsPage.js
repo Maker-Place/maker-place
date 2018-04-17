@@ -1,5 +1,7 @@
 import React from 'react';
 import './Memberships.css';
+import API from "../../utils/API";
+
 
 const Memberships = () => (
     <div className="membership-page">
