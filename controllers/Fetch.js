@@ -4,7 +4,6 @@ var scrape = require("../scripts/scrape.js");
 // Defining methods for the booksController
 module.exports = {
   scrapeClasses: function(req, res) {
-
     // scrape has a callback function that will send back classData and a boolean of weather it's done
     return scrape(function(classData, done) {
       db.Class.find({"url": classData.url}).limit(1)

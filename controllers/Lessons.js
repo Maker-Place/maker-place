@@ -6,7 +6,7 @@ module.exports = {
     res.json("findAll");
   },
   findByCategory: function(req, res) {
-    console.log("find by category");
+
     let category = req.params.category;
     db.Class.find({"category":category})
     .then(function(data) {

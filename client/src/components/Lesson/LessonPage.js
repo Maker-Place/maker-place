@@ -1,11 +1,9 @@
 import API from '../../utils/API';
 import React, { Component } from 'react';
-import { getLessonByTitle } from '../LessonData';
 // edit css for this page here:
 import './LessonPage.css';
 import './LessonPage.scss';
 export default class LessonPage extends Component {
-
 
     constructor(props) {
         super(props);
@@ -33,7 +31,7 @@ export default class LessonPage extends Component {
                     <div>Category: {this.state.lesson.category}</div>
 
                     <div dangerouslySetInnerHTML={{__html: this.state.lesson.description}}></div>
-                    <img src={this.state.lesson.image_url} />
+                    <img src={this.state.lesson.image_url} alt="default"/>
                     <div>Start Date: {this.state.lesson.startDate} </div>
 
                     {this.state.lesson.classTimes 
