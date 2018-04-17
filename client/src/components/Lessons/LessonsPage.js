@@ -126,7 +126,7 @@ class LessonsPage extends Component {
         // is no date  //
         // change to cards, passing the whole class object to the function
         let tiles = this.state.lessons.map(this.renderClassTile);
-        let categories = this.props.categories.map(this.renderCategoryTile);
+        let categories = this.props.categories ? this.props.categories.map(this.renderCategoryTile) : "";
         return (
             <div>
                 <h2>Here are all the classes!</h2>
