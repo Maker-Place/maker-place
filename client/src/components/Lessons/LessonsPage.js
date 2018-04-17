@@ -39,28 +39,25 @@ class LessonsPage extends Component {
         .catch(err => console.log(err));
     }
 
-    getLessonData = () => {
-        let category = this.props.match.params.category;
-        console.log(category);
-        if (category) {
-          API.getLessonsByCategory(category).
-          then(response => {
-            let lessons = response.data;
-            this.setState({lessons: lessons})
-          })
-          .catch(err => console.log(err));
-        } else {
-          API.getAllCategories()
-          .then(response => {
-            this.setState({categories: response.data}, () => {console.log(this.state.categories)});
-          })
-          .catch(err => console.log(err));
-        }
+    getLessonData = (category) => {
+      API.getLessonsByCategory(category).
+      then(response => {
+        let lessons = response.data;
+        this.setState({lessons: lessons})
+      })
+      .catch(err => console.log(err));
+    }
+
+    componentWillReceiveProps(newProps) {
+      this.getLessonData(newProps.match.params.category);
     }
 
     componentDidMount() {
         this.scrapeLessonData();
-        this.getLessonData();
+        //if there's a category, get the lessons
+        if (this.props.match.params.category) {
+          this.getLessonData(this.props.match.params.category);
+        }
     }
     // see: 5. Use Arrow Function in Class Property on this page:
     // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
@@ -129,7 +126,7 @@ class LessonsPage extends Component {
         // is no date  //
         // change to cards, passing the whole class object to the function
         let tiles = this.state.lessons.map(this.renderClassTile);
-        let categories = this.state.categories.map(this.renderCategoryTile);
+        let categories = this.props.categories.map(this.renderCategoryTile);
         return (
             <div>
                 <h2>Here are all the classes!</h2>

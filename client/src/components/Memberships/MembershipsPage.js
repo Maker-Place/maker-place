@@ -6,7 +6,7 @@ const Memberships = () => (
     <div className="membership-page">
         <div className="membership-image">
           <div className="membership-text">
-            <h1></h1>
+          
             <br></br>
             <p>Corporate and family memberships are available in person at MakerPlace.
 			   Military, student, and senior citizen (55+) discounts available with a valid ID for 
