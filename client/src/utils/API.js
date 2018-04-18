@@ -17,6 +17,11 @@ export default {
 
   getLessonById: function(id) {
   	return axios.get("/api/lesson/" + id);
+  },
+
+  getMemberships: function(data) {
+  	console.log(data);
+  	return axios.get("/api/memberships");
   }
 
 };
