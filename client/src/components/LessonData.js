@@ -8,6 +8,7 @@
 // "title": "This is the title",
 //"Date": "date",
 //"Time": "time
+// don't need this file anymore , getting it directly from the data base
 
 const ALL_LESSONS = [{
     title: "This is the title1",
