@@ -18,3 +18,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: white; }
+
+.tools-container {
+  background-color: black;
+  position: absolute;
+  bottom: 10px;
+  right: 10px; }
