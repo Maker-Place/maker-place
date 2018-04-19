@@ -15,6 +15,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import sanitizeHtml from 'sanitize-html';
 
 import { getAllLessons } from '../LessonData';
 import './LessonsPage.css';
@@ -77,17 +78,27 @@ class LessonsPage extends Component {
   }
 
   renderClassTile = (lesson) => { 
-    let image_url = lesson.image_url || 'https://material-components-web.appspot.com/images/1-1.jpg'; 
     // deconstruct the data 
-    let { _id, title, startTime, startDate } = lesson; 
+    let { _id, title, startTime, startDate, description } = lesson; 
+    // since the api returns scraped data that still includes html
+    // markup, we want to make sure we're sanitizing it prior to
+    // rendering it
+    let clean_description = sanitizeHtml(description, {
+      allowedTags: ['p', 'a'],
+      allowedAttributes: {
+        a: ['href', 'target']
+      }
+    });
+
     return ( 
       // link to /lessons/:id 
       <Link to={"/lesson/" + _id} key={_id}> 
         <GridTile className="LessonTile"> 
           <GridTilePrimary> 
             <GridTilePrimaryContent> 
-              <img src={image_url} alt="test" /> 
- 
+              <div 
+                dangerouslySetInnerHTML={{__html: clean_description}}
+              />
             </GridTilePrimaryContent> 
           </GridTilePrimary> 
           <GridTileSecondary theme="text-primary-on-primary"> 
@@ -125,10 +136,12 @@ class LessonsPage extends Component {
         //putting the p tag inside allows it to not have an empty space if there
         // is no date  //
         // change to cards, passing the whole class object to the function
+        // how do we get work with the below? 
+        // can we make a tile look like a card? 
         let tiles = this.state.lessons.map(this.renderClassTile);
         let categories = this.props.categories ? this.props.categories.map(this.renderCategoryTile) : "";
         return (
-            <div>
+            <div className="LessonsPage">
                 <h2>Here are all the classes!</h2>
                 
                 <GridList

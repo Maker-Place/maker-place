@@ -55,6 +55,7 @@ class App extends Component {
 
               <Route path="/lesson/:id" component={LessonPage} />
               <Route path="/lessons/:category" component={LessonsPage} />
+              {/* why not have this under /categories/:category and have a CategoryPage */}
               <Route path="/memberships" component={MembershipsPage} />
               <Route path="/Error" component={NotFound} />
               <Route path="/About" component={About} />

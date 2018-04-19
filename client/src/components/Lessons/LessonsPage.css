@@ -1,2 +1,5 @@
-.LessonTile {
+.LessonsPage .mdc-grid-tile {
+  --mdc-grid-list-tile-width: 400px; }
+
+.LessonsPage .LessonTile {
   cursor: pointer; }
