@@ -1,8 +1,9 @@
 import API from '../../utils/API';
 import React, { Component } from 'react';
-// edit css for this page here:
+
+// edit css for this page here :'./LessonPage.scss'
 import './LessonPage.css';
-import './LessonPage.scss';
+
 export default class LessonPage extends Component {
 
     constructor(props) {

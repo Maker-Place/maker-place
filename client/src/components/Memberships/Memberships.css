@@ -1,40 +1,54 @@
-/* The membership page background image */
-.membership-image {
-  /* The image used */
-  background-image: url(membership_page_background.jpg);
-  /* Set a specific height */
-  height: 100vh;
-  /* Position and center the image to scale nicely on all screens */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative; }
-
-/* Place text in the middle of the image */
-.membership-text {
-  margin-top: -10.0rem;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white; }
-
-.card-body {
-  background-color: white;
-  /*background-opacity:*/ }
-
-.card-title {
-  color: grey; }
-
-.card-text {
-  color: grey; }
-
-.card-monthly-cost {
-  color: grey; }
-
-.card-annual-cost {
-  color: grey; }
-
-.card-discount {
-  color: grey; }
+.membership-page {
+  /* The membership page background image */ }
+  .membership-page .membership-image {
+    /* The image used */
+    background-image: url(membership_page_background.jpg);
+    /* Set a specific height */
+    height: 100vh;
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    /* Place text in the middle of the image */ }
+    .membership-page .membership-image .membership-text {
+      color: white; }
+      .membership-page .membership-image .membership-text .membership-header {
+        padding-top: 20px;
+        margin-bottom: 20px;
+        /* center header in 720px box in */
+        text-align: center;
+        width: 720px;
+        margin-left: auto;
+        margin-right: auto; }
+        .membership-page .membership-image .membership-text .membership-header .membership-title {
+          font-size: 28px; }
+        .membership-page .membership-image .membership-text .membership-header .membership-description {
+          font-size: 18px; }
+      .membership-page .membership-image .membership-text .cards {
+        max-width: 1210px;
+        margin-left: auto;
+        margin-right: auto; }
+        .membership-page .membership-image .membership-text .cards .card {
+          /* float fixed width cards across center of page */
+          float: left;
+          margin: 10px;
+          width: 180px;
+          height: 550px;
+          text-align: center; }
+          .membership-page .membership-image .membership-text .cards .card .card-body {
+            background-color: width;
+            /*background-opacity:*/ }
+            .membership-page .membership-image .membership-text .cards .card .card-body .card-title {
+              color: grey;
+              font-size: 24px; }
+            .membership-page .membership-image .membership-text .cards .card .card-body .card-annual-cost,
+            .membership-page .membership-image .membership-text .cards .card .card-body .card-monthly-cost,
+            .membership-page .membership-image .membership-text .cards .card .card-body .card-discount {
+              color: grey;
+              font-size: 16px; }
+            .membership-page .membership-image .membership-text .cards .card .card-body .card-discount {
+              color: green; }
+            .membership-page .membership-image .membership-text .cards .card .card-body .card-text {
+              color: grey;
+              font-size: 14px; }

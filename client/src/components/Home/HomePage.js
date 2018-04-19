@@ -1,4 +1,6 @@
 import React from 'react';
+
+import ToolList from './ToolList';
 import './Home.css';
 
 const HomePage = () => (
@@ -8,6 +10,9 @@ const HomePage = () => (
             <h1>Maker Place</h1>
             <p>your place to make it...</p>
           </div>
+        </div>
+        <div className="tools-container">
+          <ToolList/>
         </div>
     </div>
 );
