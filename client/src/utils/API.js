@@ -2,9 +2,8 @@ import axios from "axios";
 
 export default {
 
-  scrapeLessons: function(data) {
-  	console.log(data); // need to post to send this callback
-    return axios.get("/api/lessons", data);
+  scrapeLessons: function() {
+    return axios.get("/api/lessons")
   },
 
   getLessonsByCategory: function(category) {
