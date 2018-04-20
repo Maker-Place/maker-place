@@ -6,7 +6,8 @@ module.exports = {
   scrapeClasses: function(req, res) {
     // scrape has a callback function that will send back classData and a boolean of weather it's done
     return scrape(function(classData, done) {
-      db.Class.find({"url": classData.url}).limit(1)
+      if (classData.url) {
+        db.Class.find({"url": classData.url}).limit(1)
         .then(function(found) {
           if (!found.length) {
             console.log('not found');
@@ -30,8 +31,12 @@ module.exports = {
               res.json('done');
             }
           } 
-      });
-      // res.json("scrapeClasses");
+        });
+      } else {
+        if (done) {
+          res.json('done');
+        }
+      }
     })
   }
 };
