@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // Serve up static assets
 //we need to use the next line to push the app in heroku
-// app.use(express.static("client/build"));
+app.use(express.static("client/build"));
 // Add routes, both API and view
 app.use(routes);
 // Set up promises with mongoose
