@@ -17,7 +17,6 @@ import {
 } from 'react-router-dom';
 import sanitizeHtml from 'sanitize-html';
 
-import { getAllLessons } from '../LessonData';
 import './LessonsPage.css';
 
 class LessonsPage extends Component {
@@ -30,15 +29,15 @@ class LessonsPage extends Component {
         categories: []
       };
     }
-    scrapeLessonData = () => {
-        API.scrapeLessons()
-        .then(
-            res => {
-                this.setState({done: res.data});
-            }
-        )
-        .catch(err => console.log(err));
-    }
+    // scrapeLessonData = () => {
+    //     API.scrapeLessons()
+    //     .then(
+    //         res => {
+    //             this.setState({done: res.data});
+    //         }
+    //     )
+    //     .catch(err => console.log(err));
+    // }
 
     getLessonData = (category) => {
       API.getLessonsByCategory(category).
