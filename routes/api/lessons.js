@@ -4,7 +4,7 @@ const fetch = require("../../controllers/Fetch")
 
 // Matches with "/api/lessons"
 router.route("/")
-  .get(fetch.scrapeClasses)
+  .get(fetch.scrapeClasses);
 
 // Matches with "/api/lessons/category"
 router.route("/categories")

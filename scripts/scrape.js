@@ -2,7 +2,9 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 var db = require("../models");
 
+//addToDB is the callback passed from Fetch.js
 var scrape = function(addToDB) {
+	console.log("scraping");
 	
   // First, we grab the body of the html with request
 	axios.get("http://makerplace.com/classes").then(function(response) {
@@ -22,58 +24,26 @@ var scrape = function(addToDB) {
 	    getCategory(count);
 		
 		// follow the link and get the list of classes
-		let categoriesGotten = 0;
 	    function getCategory(count) {
 	    	let category = links[count].category;
+	    	let lastCategory = false;
 
 			axios.get(links[count].link)
 			.then(function(response) {
 				
 				// the category page
 				var $ = cheerio.load(response.data);
-
-				// gets all the classes from the category page
-				getClasses($, count).then(function(response){
-
-					let classes = response;
-					
-					if (response) {
-						//add the category to each class object
-						for (var i = 0; i < classes.length; i++) {
-							classes[i].category = category;
-						};
-
-							
-						categoriesGotten++;
-
-						// it's the last category
-						
-						
-						// check if the class exists in the db
-						for (let i = 0; i < classes.length; i++) {
-							// if it's the last class of the last category
-							if ((categoriesGotten === links.length) && (i === (classes.length - 1))) {
-				    			addToDB(classes[i], true);
-				    		} else {
-								addToDB(classes[i], false);
-							}
-					    }
-
-
-			    	} else {
-			    		// if there were no classes in the category, increment and check if done
-			    		categoriesGotten++;
-			    		if (categoriesGotten === links.length) {
-			    			// res.json("done");
-			    		}
-			    	}
-				});
-
+				
+				//increment categories and check if we're done
 				count++;
 				if (count < links.length) {
 					getCategory(count);
+				} else {
+					lastCategory = true;
 				}
-
+				// passing the cheerio data, category, lastCatogry Boolean, and callback function addTo DB
+				getClasses($, category, lastCategory, addToDB);
+				
 	    	})
 	    	.catch(function(err) {
 	    		console.log(err);
@@ -81,98 +51,100 @@ var scrape = function(addToDB) {
 	    	})
 	    }
 
-		let getClasses = ($, count) => new Promise(
-			(resolve,reject) => {
-				var classLinks = [];
-				
-				//get all the class links
-				$(".eventModuleItem").each(function(i,element) {
+		function getClasses($, category, lastCategory, cb) {
+			var classLinks = [];
+			
+			//get all the class links
+			$(".eventModuleItem").each(function(i,element) {
+				var link = $(this).find(".itemTitleContainer").find("a").attr("href");
+				if (!classLinks.includes(link)) {
+					classLinks.push(link);
+				}
+			});
 
-					var link = $(this).find(".itemTitleContainer").find("a").attr("href");
-					if (!classLinks.includes(link)) {
-						classLinks.push(link);
-					}
+			let count = 0,
+			lesson = {};
 
-				});
+			getClassData(count);
+			
+			function getClassData(count) {
 
-				let classCount = 0,
-				classes = [];
+				if (classLinks[count]) {
+					axios.get(classLinks[count])
+					.then(function(response) {
+						var $ = cheerio.load(response.data);
 
-				getClassData(classCount);
-				
-				function getClassData(count) {
+						var title = $(".SystemPageTitle").html().trim();
+						var startDate = $(".eventInfoStartDate").children(".eventInfoBoxValue").children("strong").html();
+						var endDate = $(".eventInfoEndDate").children(".eventInfoBoxValue").children("span").html();
+						var startTime = $(".eventInfoStartTime").children(".eventInfoBoxValue").children("span").html();
+						var schedule = $(".eventInfoSession").html();
+						var location = $(".eventInfoLocation").children(".eventInfoBoxValue").children("span").html();
+						var spacesLeft = $(".eventInfoSpacesLeft").children(".eventInfoBoxValue").children("span").html();
+						var classTimes = [];
+						var registrationOptions = [];
+						var url = classLinks[count];
+						// not getting data
+						var registerLink = $(".boxActionContainer .inner a").attr("href");
+						var description = $(".gadgetEventEditableArea").html();
+						//strip out the html
+						description = description.replace(/<(?:.|\n)*?>/gm, '');
+						//replace any number of spaces at the beginning of the string with an open <p> tag
+						description = description.replace(/^[\s\r\t\n]*/, '<p>');
+						//replace any number of spaces at the end of the string with a close </p> tag
+						description = description.replace(/[\s\r\t\n]*$/, '</p>');
+						// replace &#xA0; with a space
+						description = description.replace(/(&#xA0;)/g, ' ');
+						// replace any two or more white space characters with a close and open p tag
+						description = description.replace(/[\s\r\t\n]{2,}/g, '</p><p>');
+						
+						$(".eventInfoSession").each(function(i, element){
+							var data = $(this).find("span").html();
+							classTimes.push(data);
+						});
 
-					if (classLinks[count]) {
-						axios.get(classLinks[count])
-						.then(function(response) {
-							var $ = cheerio.load(response.data);
-
-							var title = $(".SystemPageTitle").html().trim();
-							var startDate = $(".eventInfoStartDate").children(".eventInfoBoxValue").children("strong").html();
-							var endDate = $(".eventInfoEndDate").children(".eventInfoBoxValue").children("span").html();
-							var startTime = $(".eventInfoStartTime").children(".eventInfoBoxValue").children("span").html();
-							var schedule = $(".eventInfoSession").html();
-							var location = $(".eventInfoLocation").children(".eventInfoBoxValue").children("span").html();
-							var spacesLeft = $(".eventInfoSpacesLeft").children(".eventInfoBoxValue").children("span").html();
-							var classTimes = [];
-							var registrationOptions = [];
-							var url = classLinks[count];
-							// not getting data
-							var registerLink = $(".boxActionContainer .inner a").attr("href");
-							var description = $(".gadgetEventEditableArea").html();
-							//strip out the html
-							description = description.replace(/<(?:.|\n)*?>/gm, '');
-							//replace any number of spaces at the beginning of the string with an open <p> tag
-							description = description.replace(/^[\s\r\t\n]*/, '<p>');
-							//replace any number of spaces at the end of the string with a close </p> tag
-							description = description.replace(/[\s\r\t\n]*$/, '</p>');
-							// replace &#xA0; with a space
-							description = description.replace(/(&#xA0;)/g, ' ');
-							// replace any two or more white space characters with a close and open p tag
-							description = description.replace(/[\s\r\t\n]{2,}/g, '</p><p>');
-							
-							$(".eventInfoSession").each(function(i, element){
-								var data = $(this).find("span").html();
-								classTimes.push(data);
-							});
-
-							$(".regTypeLiLabel").each(function(){
-								var data = $(this).find("strong").html();
-								registrationOptions.push(data);
-							})
-
-							classes.push({
-								title,
-								startDate,
-								endDate,
-								startTime,
-								location,
-								spacesLeft,
-								schedule,
-								classTimes,
-								registrationOptions,
-								registerLink,
-								description,
-								url
-							});
-
-							count++;
-							if (count < classLinks.length) {
-								getClassData(count)
-							} else {
-								resolve(classes);
-							}
+						$(".regTypeLiLabel").each(function(){
+							var data = $(this).find("strong").html();
+							registrationOptions.push(data);
 						})
-						.catch(function(err) {
-							console.log(err);
-						})
-					} else {
-						//if there were no classes
-						resolve();
-					}
-		    	}
-			}
-		);
+
+						lesson = {
+							title,
+							startDate,
+							endDate,
+							startTime,
+							location,
+							spacesLeft,
+							schedule,
+							classTimes,
+							registrationOptions,
+							registerLink,
+							description,
+							url,
+							category
+						};
+
+						count++;
+						//if there are more classes, send the lesson and false (for not done) and run the function again
+						if (count < classLinks.length) {
+							cb(lesson, false);
+							getClassData(count);
+						} else {
+							//if it's the last class
+							//only send done if it's also the last category
+							cb(lesson, lastCategory);
+						}
+					})
+					.catch(function(err) {
+						console.log(err);
+					})
+				} else {
+					//if there are no classes, check if last category
+					cb({},lastCategory);
+				}
+	    	}
+		}
+		
 	});
 }
 

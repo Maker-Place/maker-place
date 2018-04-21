@@ -45,11 +45,22 @@
           width: 180px;
           height: 550px;
           text-align: center;
+<<<<<<< HEAD
 
           .card-body {           
             background-color: width;
             /*background-opacity:*/
 
+=======
+          background: rgba(white, .9);
+
+          .card-body {
+            display: flex;
+            flex-direction: column;           
+            background-color: width;
+            /*background-opacity:*/
+
+>>>>>>> ac3fdc6a5a62eec02d89a0a5b411fbbc85be7b21
             .card-title {
               color: grey;
               font-size: 24px;
@@ -69,6 +80,13 @@
             .card-text {
               color: grey;
               font-size: 14px;
+<<<<<<< HEAD
+=======
+            }
+
+            button.btn {
+              margin-top: auto;
+>>>>>>> ac3fdc6a5a62eec02d89a0a5b411fbbc85be7b21
             }         
           }
         }
