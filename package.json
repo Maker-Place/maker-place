@@ -11,7 +11,8 @@
         "seed": "node scripts/seedDB.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "installDeps": "yarn && cd client && yarn",
-        "production": "npm run installDeps && npm run build && npm run server"
+        "installClientDeps": "cd client && yarn",
+        "production": "npm run installClientDeps && npm run build && npm run server"
     },
     "author": "",
     "license": "ISC",
