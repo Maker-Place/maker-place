@@ -51,7 +51,7 @@ class Memberships extends Component {
                       <h3 className="card-monthly-cost">{membership.monthly_cost}</h3>
                       <p className="card-discount">{membership.discount}</p>
                       <p className="card-text">{membership.description}</p>
-                      <a href="#" className="btn btn-primary">Start Making...</a>
+                      <button type="button" className="btn btn-primary">Start Making...</button>
                     </div>
                   </div>
                   )
