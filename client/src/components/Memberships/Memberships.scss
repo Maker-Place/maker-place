@@ -45,8 +45,11 @@
           width: 180px;
           height: 550px;
           text-align: center;
+          background: rgba(white, .9);
 
-          .card-body {           
+          .card-body {
+            display: flex;
+            flex-direction: column;           
             background-color: width;
             /*background-opacity:*/
 
@@ -69,6 +72,10 @@
             .card-text {
               color: grey;
               font-size: 14px;
+            }
+
+            button.btn {
+              margin-top: auto;
             }         
           }
         }

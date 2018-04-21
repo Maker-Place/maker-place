@@ -31,7 +31,7 @@ class LessonsPage extends Component {
       };
     }
     scrapeLessonData = () => {
-        API.scrapeLessons("callback function")
+        API.scrapeLessons()
         .then(
             res => {
                 this.setState({done: res.data});

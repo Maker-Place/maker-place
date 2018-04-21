@@ -35,8 +35,11 @@
           margin: 10px;
           width: 180px;
           height: 550px;
-          text-align: center; }
+          text-align: center;
+          background: rgba(255, 255, 255, 0.9); }
           .membership-page .membership-image .membership-text .cards .card .card-body {
+            display: flex;
+            flex-direction: column;
             background-color: width;
             /*background-opacity:*/ }
             .membership-page .membership-image .membership-text .cards .card .card-body .card-title {
@@ -52,3 +55,5 @@
             .membership-page .membership-image .membership-text .cards .card .card-body .card-text {
               color: grey;
               font-size: 14px; }
+            .membership-page .membership-image .membership-text .cards .card .card-body button.btn {
+              margin-top: auto; }

@@ -12,21 +12,21 @@ mongoose.connect(
 const membershipsSeed = [
     {
         membership_type: "1 Year Prepaid",
-        annual_cost: "$1,296",
+        annual_cost: "$1,296/year",
         monthly_cost: "($52/month)",
         discount: "(Save 33%)",
         description: "Free Shop Orientation. After completion of the commitment period the membership will continue to automatically renew until member cancels. The member will be notified prior to any price increases."
     },
     {
         membership_type: "6 Months Prepaid",
-        annual_cost: "$720",
+        annual_cost: "$720/year",
         monthly_cost: "$120/month",
         discount: "(Save 25%)",
         description: "Free Shop Orientation. After completion of the commitment period the membership will continue to automatically renew until member cancels. The member will be notified prior to any price increases."
     },
     {
         membership_type: "3 Months Prepaid",
-        annual_cost: "$408",
+        annual_cost: "$408/year",
         monthly_cost: "($136/month)",
         discount: "(Save 15%)",
         description: "Free Shop Orientation. After completion of the commitment period the membership will continue to automatically renew until member cancels. The member will be notified prior to any price increases."
@@ -39,11 +39,11 @@ const membershipsSeed = [
         description: "Free Shop Orientation. After completion of the commitment period the membership will continue to automatically renew until member cancels. The member will be notified prior to any price increases."
     },
     {
-        membership_type: "Fabrication",
+        membership_type: "Fabrication Pass",
         annual_cost: "$79/month",
         monthly_cost: "",
         discount: "",
-        description: "This level gives member access to the craft room, assembly room and 3D printing areas only. Does not require any specific duration commitment. Membership will be automatically renewed and the associated debit/credit card will be charged at the current list price until cancelled. The member will be notified prior to any price increases."
+        description: "Access to the craft room, assembly room, and 3D printing area. Membership will be automatically renewed and the associated debit/credit card will be charged at the current list price until cancelled. The member will be notified prior to any price increases."
     },
     {
         membership_type: "10 Day Punch Card",
