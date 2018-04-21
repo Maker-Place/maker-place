@@ -11,6 +11,7 @@ import LessonsPage from './components/Lessons/LessonsPage.js';
 import LessonPage from './components/Lesson/LessonPage';
 import MembershipsPage from './components/Memberships/MembershipsPage';
 import Nav from './components/Nav/';
+import LoginPage from './components/Login/Login.js'
 import './App.css';
 import NotFound from './components/ErrorPage/NotFound.js';
 import API from './utils/API';
@@ -52,7 +53,7 @@ class App extends Component {
               <Route exact path="/" component={HomePage}/>
             {/*have to use render function instead of component to pass props with react router*/}
               <Route exact path="/lessons" render={(props) => <LessonsPage categories={this.state.categories}/>} />
-
+              <Route path="/login" component={LoginPage} />
               <Route path="/lesson/:id" component={LessonPage} />
               <Route path="/lessons/:category" component={LessonsPage} />
               {/* why not have this under /categories/:category and have a CategoryPage */}

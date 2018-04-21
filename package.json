@@ -24,6 +24,9 @@
         "cheerio": "^1.0.0-rc.2",
         "express": "^4.15.4",
         "mongoose": "^4.11.7",
-        "sanitize-html": "^1.18.2"
+        "sanitize-html": "^1.18.2",
+        "react-facebook-login": "^4.0.1",
+        "react-google-login": "^3.2.1",
+        "react-google-login-component": "^0.9.3"
     }
 }
