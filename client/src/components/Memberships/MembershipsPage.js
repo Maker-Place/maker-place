@@ -19,8 +19,11 @@ class Memberships extends Component {
       console.log(memberships);
     })
     .catch(err => console.log(err));
-  };
+  }
 
+  membershipPayment = () => {
+    window.location.href='http://makerplace.com/page-1820253' 
+  };
 
   render() {
 
@@ -51,7 +54,7 @@ class Memberships extends Component {
                       <h3 className="card-monthly-cost">{membership.monthly_cost}</h3>
                       <p className="card-discount">{membership.discount}</p>
                       <p className="card-text">{membership.description}</p>
-                      <button type="button" className="btn btn-primary">Start Making...</button>
+                      <button type="button" onClick={this.membershipPayment} className="btn btn-primary">Start Making...</button>
                     </div>
                   </div>
                   )
