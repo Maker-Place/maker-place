@@ -54,7 +54,7 @@ class LessonsPage extends Component {
     }
 
     componentDidMount() {
-        this.scrapeLessonData();
+        // this.scrapeLessonData();
         //if there's a category, get the lessons
         if (this.props.match.params.category) {
           this.getLessonData(this.props.match.params.category);
