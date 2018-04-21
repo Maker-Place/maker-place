@@ -21,6 +21,11 @@ export default {
   getMemberships: function(data) {
   	console.log(data);
   	return axios.get("/api/memberships");
+  },
+
+  getTools: function(data) {
+    console.log(data);
+    return axios.get("/api/tools");
   }
 
 };

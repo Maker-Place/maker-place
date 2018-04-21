@@ -10,6 +10,7 @@ import About from './components/About/About.js';
 import LessonsPage from './components/Lessons/LessonsPage.js';
 import LessonPage from './components/Lesson/LessonPage';
 import MembershipsPage from './components/Memberships/MembershipsPage';
+import ToolList from './components/ToolList/ToolList';
 import Nav from './components/Nav/';
 import './App.css';
 import NotFound from './components/ErrorPage/NotFound.js';
@@ -57,6 +58,7 @@ class App extends Component {
               <Route path="/lessons/:category" component={LessonsPage} />
               {/* why not have this under /categories/:category and have a CategoryPage */}
               <Route path="/memberships" component={MembershipsPage} />
+              <Route path="/tools" component={ToolList} />
               <Route path="/Error" component={NotFound} />
               <Route path="/About" component={About} />
 
