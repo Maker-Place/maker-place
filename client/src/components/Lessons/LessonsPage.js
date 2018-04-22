@@ -20,7 +20,6 @@ import sanitizeHtml from 'sanitize-html';
 import './LessonsPage.css';
 
 class LessonsPage extends Component {
-
     constructor(props) {
       super(props);
       this.state = {
@@ -29,15 +28,6 @@ class LessonsPage extends Component {
         categories: []
       };
     }
-    // scrapeLessonData = () => {
-    //     API.scrapeLessons()
-    //     .then(
-    //         res => {
-    //             this.setState({done: res.data});
-    //         }
-    //     )
-    //     .catch(err => console.log(err));
-    // }
 
     getLessonData = (category) => {
       API.getLessonsByCategory(category).
@@ -53,22 +43,12 @@ class LessonsPage extends Component {
     }
 
     componentDidMount() {
-        // this.scrapeLessonData();
         //if there's a category, get the lessons
         if (this.props.match.params.category) {
           this.getLessonData(this.props.match.params.category);
         }
     }
-    // see: 5. Use Arrow Function in Class Property on this page:
-    // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
-    // openLessonPage = (lesson)=> {
-    //   let {history} = this.props;
-    //   let path = `/lessons/${lesson.title}`;
-    //   history.push(path);
-    // }
 
-
-  // see: 5. Use Arrow Function in Class Property on this page:
   // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
   openLessonPage = (lesson) => {
     let { history } = this.props;
