@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom';
 
 // Pages used in routes
@@ -54,20 +55,24 @@ class App extends Component {
             
             <div>
               <Nav categories={this.state.categories}/ >
+  
+              <Switch>
 
-              <Route exact path="/" component={HomePage}/>
-            {/*have to use render function instead of component to pass props with react router*/}
-              <Route exact path="/lessons" render={(props) => <LessonsPage categories={this.state.categories}/>} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path="/login" component={SocialLogin} />
-              <Route path="/lesson/:id" component={LessonPage} />
-              <Route path="/lessons/:category" component={LessonsPage} />
-              {/* why not have this under /categories/:category and have a CategoryPage */}
-              <Route path="/memberships" component={MembershipsPage} />
-              <Route path="/tools" component={ToolList} />
-              <Route path="/Error" component={NotFound} />
-              <Route path="/About" component={About} />
+                <Route exact path="/" component={HomePage}/>
+              {/*have to use render function instead of component to pass props with react router*/}
+                <Route exact path="/lessons" render={(props) => <LessonsPage categories={this.state.categories}/>} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/login" component={SocialLogin} />
+                <Route path="/lesson/:id" component={LessonPage} />
+                <Route path="/lessons/:category" component={LessonsPage} />
+                {/* why not have this under /categories/:category and have a CategoryPage */}
+                <Route path="/memberships" component={MembershipsPage} />
+                <Route path="/tools" component={ToolList} />
+                <Route path="/Error" component={NotFound} />
+                <Route path="/About" component={About} />
+                <Route component={NotFound} />
+              </Switch>
 
             </div>
           </div>
