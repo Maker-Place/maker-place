@@ -251,13 +251,7 @@ const toollistSeed = [
         tool_name: "Wide variety of hand tools"
     }
 ];
-<<<<<<< HEAD
 function seedDB() {
-=======
-
-function seedDB() {
-
->>>>>>> ac3fdc6a5a62eec02d89a0a5b411fbbc85be7b21
     db.Membership
     .remove({})
     .then (() => db.Membership.insertMany(membershipsSeed))
@@ -270,10 +264,6 @@ function seedDB() {
             console.error(err);
             process.exit(1);
         });
-<<<<<<< HEAD
-=======
-
->>>>>>> ac3fdc6a5a62eec02d89a0a5b411fbbc85be7b21
     db.ToolList
     .remove({})
     .then (() => db.ToolList.insertMany(toollistSeed))
@@ -287,8 +277,4 @@ function seedDB() {
             process.exit(1);
         });
 };
-<<<<<<< HEAD
-=======
-
->>>>>>> ac3fdc6a5a62eec02d89a0a5b411fbbc85be7b21
 seedDB();

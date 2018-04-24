@@ -54,11 +54,7 @@ class Memberships extends Component {
                       <h3 className="card-monthly-cost">{membership.monthly_cost}</h3>
                       <p className="card-discount">{membership.discount}</p>
                       <p className="card-text">{membership.description}</p>
-<<<<<<< HEAD
-                      <a href="#" className="btn btn-primary">Start Making...</a>
-=======
                       <button type="button" onClick={this.membershipPayment} className="btn btn-primary">Start Making...</button>
->>>>>>> ac3fdc6a5a62eec02d89a0a5b411fbbc85be7b21
                     </div>
                   </div>
                   )

@@ -8,14 +8,9 @@ var Schema = mongoose.Schema;
 var ToolListSchema = new Schema ({
   category: {
     type: String,
-<<<<<<< HEAD
-    required:true
-    },
-=======
     required: true
   },
 
->>>>>>> ac3fdc6a5a62eec02d89a0a5b411fbbc85be7b21
   tool_type: {
     type: String,
     required: true
@@ -25,11 +20,6 @@ var ToolListSchema = new Schema ({
     type: String,
     required: false
   }
-<<<<<<< HEAD
-
-  
-=======
->>>>>>> ac3fdc6a5a62eec02d89a0a5b411fbbc85be7b21
 });
 
 
