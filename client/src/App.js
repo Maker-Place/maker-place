@@ -11,10 +11,15 @@ import LessonsPage from './components/Lessons/LessonsPage.js';
 import LessonPage from './components/Lesson/LessonPage';
 import MembershipsPage from './components/Memberships/MembershipsPage';
 import ToolList from './components/ToolList/ToolList';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
+import SocialLogin from './components/SocialLogin/SocialLogin' ;
+
 import Nav from './components/Nav/';
 import './App.css';
 import NotFound from './components/ErrorPage/NotFound.js';
 import API from './utils/API';
+
 
 // This is where you define top level routes in the app mapping some url to a given page component
 // to add a new page/route:
@@ -53,7 +58,9 @@ class App extends Component {
               <Route exact path="/" component={HomePage}/>
             {/*have to use render function instead of component to pass props with react router*/}
               <Route exact path="/lessons" render={(props) => <LessonsPage categories={this.state.categories}/>} />
-
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              <Route path="/login" component={SocialLogin} />
               <Route path="/lesson/:id" component={LessonPage} />
               <Route path="/lessons/:category" component={LessonsPage} />
               {/* why not have this under /categories/:category and have a CategoryPage */}
@@ -70,4 +77,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App ;
