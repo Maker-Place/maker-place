@@ -24,11 +24,13 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     }).then(response => {
+      //if the login returns true, redirect
       if (response.data.success) {
-        // redirect 
-        this.props.history.push('/register')
+        this.props.history.push('/');
+        console.log("you're logged in");
       }
     }).catch(error => {
+      console.log(error.response.status + " error");
       console.log('Not logged in');
       // show an error message
     })
@@ -43,11 +45,11 @@ class Login extends Component {
             <h3 className="text-center">Account Login</h3>
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
-                <label for="email">Email</label>
-                <input type="email" className="form-control" name="email" onChange={this.handleInputChange} value={this.state.email} required autofocus />
+                <label htmlFor="email">Email</label>
+                <input type="email" className="form-control" name="email" onChange={this.handleInputChange} value={this.state.email} required autoFocus />
               </div>
               <div className="form-group">
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input type="password" className="form-control" name="password" onChange={this.handleInputChange} value={this.state.password} required />
               </div>
               <button type="submit" className="btn btn-primary">LogIn</button>

@@ -5,23 +5,21 @@ const User = require('../models/User');
 
 module.exports = {
   /* *** GET ENDPOINTS *** */
-  login: (req, res) => res.render('/login'),
-  register: (req, res) => res.render('/register'),
-  logout: (req, res) => {
-    req.logout();
-    res.redirect('/home');
-  },
+  // login: (req, res) => res.send("login route"),
+  // register: (req, res) => res.render('/register'),
+      logout: (req, res) => {
+        req.logout();
+        res.redirect('/home');
+      },
   
   //contact us form
-  contact: (req, res) => res.render('contact/contact'),
-  secret: (req, res) => res.render('/secret'),
+  // contact: (req, res) => res.render('contact/contact'),
+  // secret: (req, res) => res.render('/secret'),
   /* *** POST ENDPOINTS *** */
   postRegister: (req, res) => {
-    console.log("11");
     let errors = [];
-
-    // if (req.body.password != req.body.rpassword)
-    //   errors.push({text: 'Password does not match'});
+    if (req.body.password != req.body.rpassword)
+      errors.push({text: 'Password does not match'});
     if (req.body.password.length < 4)
       errors.push({text: 'Password must be at least 4 characters!'});
     // verify if errors exist
@@ -35,12 +33,13 @@ module.exports = {
         rpassword: req.body.rpassword
       });
     }  else {
+      //check if there is a user with that email
       User.findOne({email: req.body.email})
         .then(user => {
           if (user) {
             errors.push({text: 'User already exist!'});
-            console.log("registered");
-            res.json(req.body);
+            console.log("already registered");
+            res.status(400).send(errors);
           } else {
             const newUser = new User({
               name: req.body.name,
@@ -48,16 +47,16 @@ module.exports = {
               password: req.body.password,
               
             });
-            console.log(newUser.name);
-            console.log('here');
+            console.log("new user being added");
+            console.log(newUser);
+
             bcrypt.genSalt(10, (err, salt) => {
               bcrypt.hash(newUser.password, salt, (err, hash) => {
                 if (err) throw err;
                 newUser.password = hash;
                 newUser.save()
                   .then(user => {
-                    console.log(`User ${user.name} register!`);
-                    res.redirect('/login');
+                    res.json({success:true});
                 })
                 .catch(err => console.log(err));
               });
@@ -66,9 +65,9 @@ module.exports = {
         });
       }
   },
-  postLogin: (req, res) => {
-    // This function runs only if the user is logged in.
-    res.json({success: true})
+  postLogin: (req, res, next) => {
+    //check if logged in and then run the next function
+    passport.authenticate('local')(req,res,next);
 
  } // Finish
 };

@@ -1,20 +1,20 @@
 const router = require('express').Router();
-const passport = require('passport');
 
 const userController = require('../../controllers/user');
 const {ensureGuest, ensureAuthenticated} = require('../../libs/auth');
 //const nodemailer = require('nodemailer');
 /* *** GET ENDPOINTS *** */
-router.get('/contact', userController.contact);
-router.get('/login', ensureGuest, userController.login);
-router.get('/register', ensureGuest, userController.register);
+// router.get('/contact', userController.contact);
+// router.get('/login', ensureGuest, userController.login);
+// router.get('/register', ensureGuest, userController.register);
 router.get('/logout', ensureAuthenticated, userController.logout);
 
-router.get('/secret', ensureAuthenticated, userController.secret);
+// router.get('/secret', ensureAuthenticated, userController.secret);
 /* *** POST ENDPOINTS *** */
 
 router.post('/register', userController.postRegister);
-router.post('/login', passport.authenticate('local'), userController.postLogin);
+//check if logged in, and return true if so
+router.post('/login', userController.postLogin, (req,res) => res.json({success: true}));
 
 //router.post('/contact', userController.postContact);
 router.post('/send', (req, res) => {

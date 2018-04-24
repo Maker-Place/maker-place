@@ -5,6 +5,7 @@ import {
   Link
 } from 'react-router-dom';
 import './Nav.css';
+import Logout from "../Logout/Logout";
 
 
 const Nav = props => (
@@ -45,6 +46,7 @@ const Nav = props => (
        <Link to="/login">
        <button className="btn btn-secondary my-2 my-sm-0">Login</button>
      </Link>
+     <Logout/>
        {/* </form> */}
      </div>
   </nav>
