@@ -2,10 +2,6 @@ import axios from "axios";
 
 export default {
 
-  scrapeLessons: function() {
-    return axios.get("/api/lessons")
-  },
-
   getLessonsByCategory: function(category) {
   	return axios.get("/api/lessons/" + category);
   },

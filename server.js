@@ -44,7 +44,7 @@ app.use(require('./routes/')); // main routes
 
 // Serve up static assets
 //we need to use the next line to push the app in heroku
-// app.use(express.static("client/build"));
+app.use(express.static("client/build"));
 // Add routes, both API and view
 // app.use(routes);
 // app.use(session({
@@ -62,6 +62,7 @@ app.use(require('./routes/')); // main routes
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
+<<<<<<< HEAD
 mongoose.connect(
     process.env.MONGODB_URI || "mongodb://localhost/makerplace",
     {
@@ -69,6 +70,11 @@ mongoose.connect(
     }
 );
 
+=======
+
+var MONGODB_URI = 'mongodb://heroku_tb6dcfcz:h647rilmvc2kg3t4rcnr824u2h@ds161026.mlab.com:61026/heroku_tb6dcfcz';
+mongoose.connect("mongodb://localhost/makerplace" || MONGODB_URI);
+>>>>>>> master
 
 // Start the API server
 app.listen(PORT, function () {
