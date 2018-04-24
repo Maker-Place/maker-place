@@ -15,7 +15,16 @@ import Nav from './components/Nav/';
 import './App.css';
 import NotFound from './components/ErrorPage/NotFound.js';
 import API from './utils/API';
+import {
+  Collapse,
+  Button,
+  CardBody,
+  Card
+} from 'reactstrap';
 
+//
+// does the above bootstrap get exported and then imported from 
+// 
 // This is where you define top level routes in the app mapping some url to a given page component
 // to add a new page/route:
 // 1) import page component
