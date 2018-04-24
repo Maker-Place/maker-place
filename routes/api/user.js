@@ -11,7 +11,10 @@ router.get('/logout', ensureAuthenticated, userController.logout);
 
 router.get('/secret', ensureAuthenticated, userController.secret);
 /* *** POST ENDPOINTS *** */
-router.post('/register', userController.postRegister);
+router.post('/register', (userController.postRegister));
+// router.post('/register', function(req, res) {
+//   console.log("hi");
+// });
 router.post('/login', userController.postLogin);
 //router.post('/contact', userController.postContact);
 router.post('/send', (req, res) => {
@@ -62,7 +65,7 @@ router.post('/send', (req, res) => {
   
         res.render('view/contact/contact', {msg:'Email has been sent'});
     });
-    });
+  });
   
 // finish -> export
 module.exports = router;

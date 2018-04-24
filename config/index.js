@@ -1,4 +1,4 @@
 module.exports = {
-    MONGO_URL: 'mongodb://localhost/auth'
-  };
+	MONGODB_URI: 'mongodb://localhost/makerplace'
+};
   

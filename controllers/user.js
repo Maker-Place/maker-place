@@ -39,7 +39,8 @@ module.exports = {
         .then(user => {
           if (user) {
             errors.push({text: 'User already exist!'});
-            res.render('/register', {errors, name: '', email: '', password: '', rpassword: ''});
+            console.log("registered");
+            res.json(req.body);
           } else {
             const newUser = new User({
               name: req.body.name,
@@ -65,13 +66,14 @@ module.exports = {
         });
       }
   },
-  postLogin: (req, res) => {
+  postLogin: (req, res, next) => {
     // req.body = {email, password}
+    console.log("postLogin");
     console.log(req.body);
     // res.send(req.body);
     passport.authenticate('local', {
-      successRedirect: '/',
+      successRedirect: '/loggedin',
       failureRedirect: '/test'
-    })(req, res);
+    })(req, res, next);
  } // Finish
 };
