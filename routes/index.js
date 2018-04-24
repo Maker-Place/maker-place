@@ -5,7 +5,7 @@ const apiRoutes = require("./api");
 // API Routes
 router.use("/api", apiRoutes);
 
-router.get('/', (req, res) => {
+router.get('/loggedin', (req, res) => {
   res.send('login');
 });
 
