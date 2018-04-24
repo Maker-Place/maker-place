@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom'
 import axios from 'axios';
 
 import './Login.css';
@@ -22,8 +23,14 @@ class Login extends Component {
     axios.post('/api/user/login', {
       email: this.state.email,
       password: this.state.password
-    }).then(function() {
-      console.log('Done')
+    }).then(response => {
+      if (response.data.success) {
+        // redirect 
+        this.props.history.push('/register')
+      }
+    }).catch(error => {
+      console.log('Not logged in');
+      // show an error message
     })
     // make POST request to /api/user/login, data is email and password
   }
@@ -56,4 +63,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

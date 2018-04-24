@@ -66,12 +66,7 @@ module.exports = {
       }
   },
   postLogin: (req, res) => {
-    // req.body = {email, password}
-    console.log(req.body);
-    // res.send(req.body);
-    passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/test'
-    })(req, res);
+    // This function runs only if the user is logged in.
+    res.json({success: true})
  } // Finish
 };

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const passport = require('passport');
 
 const userController = require('../../controllers/user');
 const {ensureGuest, ensureAuthenticated} = require('../../libs/auth');
@@ -12,7 +13,7 @@ router.get('/logout', ensureAuthenticated, userController.logout);
 router.get('/secret', ensureAuthenticated, userController.secret);
 /* *** POST ENDPOINTS *** */
 router.post('/register', userController.postRegister);
-router.post('/login', userController.postLogin);
+router.post('/login', passport.authenticate('local'), userController.postLogin);
 //router.post('/contact', userController.postContact);
 router.post('/send', (req, res) => {
     const output = `
