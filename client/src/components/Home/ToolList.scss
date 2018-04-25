@@ -83,3 +83,15 @@ body {
   .panel-default>.panel-heading a[aria-expanded="false"]:after {
     content: "\e114";
   }
+
+  // wasn't getting applied to document so used inline styles
+  // .tools-list {
+  //   button, .tool {
+  //     margin-left: 10px;
+  //   }
+
+  //   button {
+  //     margin-top: 10px;
+  //     margin-bottom: 3rem;
+  //   }
+  // }
