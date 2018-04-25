@@ -5,6 +5,7 @@ import {
   Link
 } from 'react-router-dom';
 import './Nav.css';
+import Logout from "../Logout/Logout";
 
 
 const Nav = props => (
@@ -39,11 +40,22 @@ const Nav = props => (
          <li className="nav-item">
            <Link className="nav-link" to="/memberships">Memberships</Link>
          </li>
+         <li className="nav-item">
+           <Link className="nav-link" to="/dashboard">dashboard</Link>
+         </li>
 
        </ul>
-       <form className="form-inline my-2 my-lg-0">
-         <button className="btn btn-secondary my-2 my-sm-0" type="submit">Login</button>
-       </form>
+       {/* <form className="form-inline my-2 my-lg-0"> */}
+       
+      {
+        props.loggedin 
+        ? (<Logout checkLoggedIn={props.checkLoggedIn}/>)
+        : (<Link to="/login">
+             <button className="btn btn-secondary my-2 my-sm-0">Login</button>
+           </Link>)
+        
+        }
+       {/* </form> */}
      </div>
   </nav>
 );

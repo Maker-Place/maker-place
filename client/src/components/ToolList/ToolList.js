@@ -30,13 +30,14 @@ class ToolList extends Component {
       .then(response => {
       let tools = response.data;
         this.setState({tools: tools})
-        console.log(tools);
+
         const wood = this.state.tools.filter((item)=> item.category == 'Wood');
         this.setState({wood:wood}, function(){console.log('wood after set ', this.state.wood);});
         const metal = this.state.tools.filter((item)=> item.category == 'Metal');
         this.setState({metal:metal}, function(){console.log('metal after set ', this.state.metal);});
         const craft = this.state.tools.filter((item)=> item.category == 'Craft');
         this.setState({craft:craft}, function(){console.log('craft after set ', this.state.craft);});
+
       })
         .catch(err => console.log(err));
     }
@@ -115,6 +116,7 @@ class ToolList extends Component {
             </div>
             
             {/* add wrapper for grouping cards together */}
+
             
             <div className="row">
               {toolGroups}
@@ -129,6 +131,7 @@ class ToolList extends Component {
                       <div>
                       <p>{tool.tool_name}</p>
                       </div>
+
                   </div>
                   )
                 })
