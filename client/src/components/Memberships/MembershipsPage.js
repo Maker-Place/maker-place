@@ -47,7 +47,7 @@ class Memberships extends Component {
             <div className="cards">
               {memberships.map(membership => {
                 return (
-                  <div className="card">
+                  <div className="card" key={membership.membership_type}>
                     <div className="card-body">
                       <h1 className="card-title">{membership.membership_type}</h1>
                       <h2 className="card-annual-cost">{membership.annual_cost}</h2>
