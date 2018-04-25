@@ -33,8 +33,6 @@ import {
 import axios from 'axios';
 
 
-// does the above bootstrap get exported and then imported from 
-// 
 // This is where you define top level routes in the app mapping some url to a given page component
 // to add a new page/route:
 // 1) import page component
@@ -44,6 +42,8 @@ import axios from 'axios';
 // <Route exact path="/classes" render={(props)=> (
 //   <LessonsPage {...props} classNames={CLASS_NAMES} />
 // )}/>
+
+
 class App extends Component {
   state = {
     categories: [],
@@ -97,13 +97,8 @@ class App extends Component {
               }} />
         )} />)
       } 
-      return null
-      
+      return null    
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return !this.state.loading;
-  // }
 
   render() {
     return(
