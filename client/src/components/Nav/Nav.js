@@ -5,8 +5,8 @@ import {
   Link
 } from 'react-router-dom';
 import './Nav.css';
+import sanitizeHtml from 'sanitize-html'; 
 import Logout from "../Logout/Logout";
-
 
 const Nav = props => (
   <nav className="navbar navbar-expand-md navbar-dark bg-dark">
@@ -30,11 +30,27 @@ const Nav = props => (
           Classes
         </a>
         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-          {props.categories.map(category => (
+          {props.categories.map(category => {
               
-                <Link className="dropdown-link"key={category} to={"/lessons/" + category}>{category}</Link>
+                let clean_cat = sanitizeHtml(category, { 
+                allowedTags: ['p', 'a'], 
+                allowedAttributes: { 
+                  a: ['href', 'target'] 
+                } 
+              }); 
+              String.prototype.replaceAll = function(search, replacement) { 
+                  var target = this; 
+                  return target.replace(new RegExp(search, 'g'), replacement); 
+              }; 
+ 
+              let slug = clean_cat.replaceAll(' ', '_'); 
+              slug = slug.replaceAll('&amp;', '&');
+             
+              return (<Link className="dropdown-link"key={clean_cat} to={"/lessons/" + slug} dangerouslySetInnerHTML={{__html: clean_cat}}></Link>)
+
               
-            ))}
+            })
+        }
         </div>
       </li>
          <li className="nav-item">
