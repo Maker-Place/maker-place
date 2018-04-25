@@ -11,10 +11,12 @@ router.get('/logout', ensureAuthenticated, userController.logout);
 
 // router.get('/secret', ensureAuthenticated, userController.secret);
 /* *** POST ENDPOINTS *** */
+//if authenticated this sends back the user object, otherwise it sends back html
+router.get('/checkloggedin', ensureAuthenticated, (req,res) => res.json(req.user));
 
 router.post('/register', userController.postRegister);
 //check if logged in, and return true if so
-router.post('/login', userController.postLogin, (req,res) => res.json({success: true}));
+router.post('/login', userController.postLogin, (req,res) => res.json(req.user));
 
 //router.post('/contact', userController.postContact);
 router.post('/send', (req, res) => {

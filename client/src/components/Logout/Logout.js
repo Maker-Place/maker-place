@@ -8,15 +8,12 @@ class Logout extends Component {
 
   handleLogout = event => {
     event.preventDefault();
-    console.log("logging out");
     axios.get('/api/user/logout').then(response => {
-      console.log(response);
-      console.log(this.props.history);
       if (response.status === 200) {
-         this.props.history.push('/register');
-        
+          // checks in app.js and sets logged in state
+          this.props.checkLoggedIn()
+          this.props.history.push('/');
       }
-      
     }).catch(error => {
       console.log(error);
       // show an error message

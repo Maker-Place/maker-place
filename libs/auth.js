@@ -6,9 +6,10 @@ module.exports = {
         return next()
       } else {
         console.log("you're not logged in");
+        res.send(false);
       }
 
-      res.redirect('/login');
+      
     },
     ensureGuest: function (req, res, next) {
       console.log("ensureGuest");

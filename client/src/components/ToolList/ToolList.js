@@ -18,7 +18,6 @@ class ToolList extends Component {
       .then(response => {
       let tools = response.data;
         this.setState({tools: tools})
-        console.log(tools);
       })
         .catch(err => console.log(err));
     }
@@ -38,9 +37,9 @@ class ToolList extends Component {
             </div>
             {/* add wrapper for grouping cards together */}
             <div>
-              {tools.map(tool => {
+              {tools.map((tool, i) => {
                 return (
-                  <div>
+                  <div key={i}>
                     <div>
                       <h3>{tool.category}</h3>
                       <h3>{tool.tool_type}</h3>

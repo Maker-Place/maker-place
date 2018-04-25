@@ -5,10 +5,13 @@ import axios from 'axios';
 // import './Login.css';
 
 class Login extends Component {
-  state = {
-    email: '',
-    password: ''
-  }
+  constructor(props) {
+      super(props);
+      this.state = {
+         email: '',
+          password: ''
+      };
+    }
 
   handleInputChange = event => {
     const {value, name} = event.target;
@@ -16,7 +19,6 @@ class Login extends Component {
       [name]: value
     })
   }
-
   handleSubmit = event => {
     event.preventDefault();
     // event.stopPropagation();
@@ -24,13 +26,14 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     }).then(response => {
-      //if the login returns true, redirect
-      if (response.data.success) {
-        this.props.history.push('/');
-        console.log("you're logged in");
+      //if the login returns true, redirect      
+      if (response.data.status = 200) {
+        //check if logged in
+        this.props.checkLoggedIn();
+        this.props.history.push('/dashboard');
       }
     }).catch(error => {
-      console.log(error.response.status + " error");
+      console.log(error);
       console.log('Not logged in');
       // show an error message
     })
