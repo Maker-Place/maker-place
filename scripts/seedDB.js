@@ -251,9 +251,7 @@ const toollistSeed = [
         tool_name: "Wide variety of hand tools"
     }
 ];
-
 function seedDB() {
-
     db.Membership
     .remove({})
     .then (() => db.Membership.insertMany(membershipsSeed))
@@ -266,7 +264,6 @@ function seedDB() {
             console.error(err);
             process.exit(1);
         });
-
     db.ToolList
     .remove({})
     .then (() => db.ToolList.insertMany(toollistSeed))
@@ -280,5 +277,4 @@ function seedDB() {
             process.exit(1);
         });
 };
-
 seedDB();
