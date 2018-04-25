@@ -39,7 +39,15 @@ class LessonsPage extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-      this.getLessonData(newProps.match.params.category);
+      
+      String.prototype.replaceAll = function(search, replacement) { 
+          var target = this; 
+          return target.replace(new RegExp(search, 'g'), replacement); 
+      };
+      let category = newProps.match.params.category.replaceAll("_", " ")
+      category = category.replaceAll("&","&amp;");
+
+      this.getLessonData(category);
     }
 
     componentDidMount() {
