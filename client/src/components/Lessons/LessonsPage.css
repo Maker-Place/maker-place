@@ -1,3 +1,11 @@
+.LessonsPage .lessons-image {
+  background-image: url(maker-place-workshop1.jpg);
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative; }
+
 .LessonsPage .mdc-grid-tile {
   --mdc-grid-list-tile-width: 400px; }
 

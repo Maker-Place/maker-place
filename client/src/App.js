@@ -19,6 +19,7 @@ import SocialLogin from './components/SocialLogin/SocialLogin' ;
 import Dashboard from "./components/Dashboard/Dashboard";
 
 import Nav from './components/Nav/';
+import Calendar from './components/Calendar/Calendar.js';
 import './App.css';
 import NotFound from './components/ErrorPage/NotFound.js';
 import API from './utils/API';
@@ -112,10 +113,9 @@ class App extends Component {
             
             <div>
               <Nav categories={this.state.categories} loggedin={this.state.loggedin} checkLoggedIn={this.checkLoggedIn}/ >
-
               <div className="mainContent">
                 <Switch>
-                
+
                   <Route exact path="/" component={HomePage}/>
                 {/*have to use render function instead of component to pass props with react router*/}
                   <Route exact path="/lessons" render={(props) => <LessonsPage/>} />

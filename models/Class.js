@@ -67,12 +67,11 @@ var ClassSchema = new Schema({
   description: {
     type: String,
   },
+
   url: {
     type: String,
     required: true,
   }
-
-
 
 });
 
