@@ -19,6 +19,7 @@ import SocialLogin from './components/SocialLogin/SocialLogin' ;
 import Dashboard from "./components/Dashboard/Dashboard";
 
 import Nav from './components/Nav/';
+import Calendar from './components/Calendar/Calendar.js';
 import './App.css';
 import NotFound from './components/ErrorPage/NotFound.js';
 import API from './utils/API';
@@ -124,7 +125,6 @@ class App extends Component {
                 <Route exact path="/lessons" render={(props) => <LessonsPage/>} />
                 <Route exact path="/login" render={(props) => <Login checkLoggedIn={this.checkLoggedIn} setUser={this.setUser} /> } />
                 <Route exact path="/register" component={Register} />
-
                 <Route path="/lesson/:id" component={LessonPage} />
                 <Route path="/lessons/:category" component={LessonsPage} />
                 {/* why not have this under /categories/:category and have a CategoryPage */}
@@ -136,6 +136,7 @@ class App extends Component {
                 <Route path="/About" component={About} />
                 <Route component={NotFound} />
               </Switch>
+
 
             </div>
           </div>
