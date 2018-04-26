@@ -12,6 +12,7 @@ import LessonPage from './components/Lesson/LessonPage';
 import MembershipsPage from './components/Memberships/MembershipsPage';
 import ToolList from './components/ToolList/ToolList';
 import Nav from './components/Nav/';
+import Calendar from './components/Calendar/Calendar.js';
 import './App.css';
 import NotFound from './components/ErrorPage/NotFound.js';
 import API from './utils/API';
@@ -59,6 +60,7 @@ class App extends Component {
               {/* why not have this under /categories/:category and have a CategoryPage */}
               <Route path="/memberships" component={MembershipsPage} />
               <Route path="/tools" component={ToolList} />
+              <Route path="/calendar" component={Calendar} />
               <Route path="/Error" component={NotFound} />
               <Route path="/About" component={About} />
 

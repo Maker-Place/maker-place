@@ -16,7 +16,7 @@ import {
   Link
 } from 'react-router-dom';
 import sanitizeHtml from 'sanitize-html';
-
+import Calendar from '../Calendar/Calendar';
 import './LessonsPage.css';
 
 class LessonsPage extends Component {
@@ -121,6 +121,7 @@ class LessonsPage extends Component {
         let categories = this.props.categories ? this.props.categories.map(this.renderCategoryTile) : "";
         return (
             <div className="LessonsPage">
+                <Calendar lessons={this.state.lessons}/>
                 <h2>Here are all the classes!</h2>
                 
                 <GridList

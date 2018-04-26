@@ -15,7 +15,7 @@ app.use(routes);
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/makerplace");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/maker-scraper");
 // Start the API server
 app.listen(PORT, function () {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
