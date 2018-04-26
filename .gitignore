@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+
+client/src/components/Lessons/LessonsPage\.css
