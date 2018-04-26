@@ -15,3 +15,14 @@ img {
       border-bottom: none; }
     .dropdown-menu .dropdown-link:hover {
       color: #a4c83a; }
+
+nav.navbar {
+  position: absolute;
+  width: 100%;
+  z-index: 100; }
+  nav.navbar .navbar-brand {
+    max-width: 50%;
+    width: 200px; }
+
+.mdc-button:hover, a:hover {
+  text-decoration: none; }

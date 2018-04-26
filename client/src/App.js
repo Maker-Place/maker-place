@@ -45,15 +45,19 @@ import axios from 'axios';
 
 
 class App extends Component {
-  state = {
-    categories: [],
-    loggedin: false,
-    loading: true,
-    user: {}
-  };
+  constructor(props) {
+      super(props);
+      this.state = {
+        categories: [],
+        loggedin: false,
+        loading: true,
+        user: {}
+      };
+    }
 
   componentWillMount() {
     this.checkLoggedIn();
+    console.log(this.props);
   }
 
   componentDidMount() {
@@ -104,40 +108,33 @@ class App extends Component {
     return(
       <div>
         <Router>
-          <div>
+
             
             <div>
               <Nav categories={this.state.categories} loggedin={this.state.loggedin} checkLoggedIn={this.checkLoggedIn}/ >
-              {this.state.user._id
-              ? (
-              <div>
-                <p> Hello, {this.state.user.name} </p>
-                <p> Your user ID is: {this.state.user._id} </p>
-              </div>
-              )
-              : "" }
-  
-              <Switch>
 
-                <Route exact path="/" component={HomePage}/>
-              {/*have to use render function instead of component to pass props with react router*/}
-                <Route exact path="/lessons" render={(props) => <LessonsPage/>} />
-                <Route exact path="/login" render={(props) => <Login checkLoggedIn={this.checkLoggedIn} setUser={this.setUser} /> } />
-                <Route exact path="/register" component={Register} />
-
-                <Route path="/lesson/:id" component={LessonPage} />
-                <Route path="/lessons/:category" component={LessonsPage} />
-                {/* why not have this under /categories/:category and have a CategoryPage */}
-                <this.PrivateRoute loading={this.state.loading} user={this.state.user} path="/dashboard" component={Dashboard} />
-                <Route path="/memberships" component={MembershipsPage} />
+              <div className="mainContent">
+                <Switch>
                 
-                <Route path="/tools" component={ToolList} />
-                <Route path="/Error" component={NotFound} />
-                <Route path="/About" component={About} />
-                <Route component={NotFound} />
-              </Switch>
+                  <Route exact path="/" component={HomePage}/>
+                {/*have to use render function instead of component to pass props with react router*/}
+                  <Route exact path="/lessons" render={(props) => <LessonsPage/>} />
+                  <Route exact path="/login" render={(props) => <Login checkLoggedIn={this.checkLoggedIn} setUser={this.setUser} /> } />
+                  <Route exact path="/register" component={Register} />
+                
+                  <Route path="/lesson/:id" component={LessonPage} />
+                  <Route path="/lessons/:category" component={LessonsPage} />
+                  {/* why not have this under /categories/:category and have a CategoryPage */}
+                  <this.PrivateRoute loading={this.state.loading} user={this.state.user} path="/dashboard" component={Dashboard} />
+                  <Route path="/memberships" component={MembershipsPage} />
+                  
+                  <Route path="/tools" component={ToolList} />
+                  <Route path="/Error" component={NotFound} />
+                  <Route path="/About" component={About} />
+                  <Route component={NotFound} />
+                </Switch>
+              </div>
 
-            </div>
           </div>
         </Router>
       </div>

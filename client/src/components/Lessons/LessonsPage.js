@@ -16,6 +16,7 @@ import {
   Link
 } from 'react-router-dom';
 import sanitizeHtml from 'sanitize-html';
+import { IconToggle } from 'rmwc/IconToggle';
 
 import './LessonsPage.css';
 
@@ -104,13 +105,23 @@ class LessonsPage extends Component {
                 />
               </GridTilePrimaryContent> 
             </GridTilePrimary> 
-            <GridTileSecondary theme="text-primary-on-primary"> 
+            <GridTileSecondary> 
               <GridTileTitle>{title}</GridTileTitle> 
               <GridTileTitleSupportText>{startDate} {startTime}</GridTileTitleSupportText>
             </GridTileSecondary> 
           </GridTile> 
         </Link>
-        <button className="btn btn-dark btn-favorite border-white" onClick={() => this.handleFavorite(_id)}>Favorite</button>
+        {/*<button className="btn btn-dark btn-favorite border-white" onClick={() => this.handleFavorite(_id)}>Favorite</button>*/}
+        <IconToggle 
+          on={{label: 'Remove from favorites', content: 'favorite' }}
+          off={{label: 'Add to favorites', content: 'favorite_border'}}
+          onChange={(checked) => {
+              if (checked.detail.isOn) {
+                this.handleFavorite(_id);
+              }
+            }
+          }
+        />
       </div>
     ); 
   } 

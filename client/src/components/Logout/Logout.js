@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom'
 import axios from 'axios';
+import { Button } from 'rmwc/Button';
 
 // import './Login.css';
 
@@ -23,7 +24,7 @@ class Logout extends Component {
   render() {
     return (
 
-         <button onClick={this.handleLogout}> Log out </button>
+         <Button onClick={this.handleLogout}> Log out </Button>
 
     )
   }

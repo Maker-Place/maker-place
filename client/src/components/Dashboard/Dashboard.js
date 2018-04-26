@@ -1,6 +1,18 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import API from '../../utils/API';
+import {
+  Card,
+  CardPrimaryAction,
+  CardMedia,
+  CardAction,
+  CardActions,
+  CardActionButtons,
+  CardActionIcons
+} from 'rmwc/Card';
+import { Grid, GridCell } from 'rmwc/Grid';
+import { Typography } from 'rmwc/Typography';
+import './Dashboard.css';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -11,17 +23,14 @@ class Dashboard extends Component {
     }
 
     getFavorites = () => {
-    	this.setState({lessons: "hi"});
-    	
     	console.log("getting favorites");
     	//this.props.user._id
     	// "5ae0d443de7ce7ddcbc53a2d"
     	API.getFavorites(this.props.user._id)
     	.then(response => {
-    		
     		let lessons = response.data;
     		console.log(lessons);
-    		this.setState({favorites: lessons}, () => console.log(this.state))
+    		this.setState({favorites: lessons})
     	})
     	.catch(err => console.log(err));
     }
@@ -29,22 +38,64 @@ class Dashboard extends Component {
     componentDidMount() {
     	this.getFavorites();
     }
+    openLessonPage = (lesson) => {
+        console.log(lesson);
+        let { history } = this.props;
+        let path = `/lesson/${lesson}`;
+        history.push(path);
+    }
 
 	render() {
 	    return(<div>
 
-	        <p>This is your user Dashboard</p>
-
+	        <Grid>
+                <GridCell span="12">
+                    <h1>Hi {this.props.user.name}</h1>
+                    <h2>Here are your favorites</h2>
+                </GridCell>
+      
 	        {
 	        	this.state.favorites.map(lesson => {
+                    let {_id, classTimes, startDate, startTime, title, registerLink} = lesson;
+
 		        	return(
+                        <GridCell span="4">
 		        		<div key={lesson._id}>
-		        			<p>{lesson.title}</p>
-		        			<p>{lesson.startTime}</p>
+                        <Card className="classCard" tag="Link" to="/" theme="primary" stroked="true" >
+         
+                            
+                            <div className="cardContent">
+                              <Typography use="title" tag="h2">{title}</Typography>
+                              <Typography
+                                // use="subheading1"
+                                tag="ul"
+                                theme="text-secondary-on-background">
+                                {classTimes.length ? (
+                                   classTimes.map(time => (<li>{time}</li>))
+                                ) : 
+                                (
+                                    <li>{startDate}, {startTime}</li>
+                                )}
+
+                              </Typography>
+                             
+                            </div>
+               
+                          <CardActions>
+                            <CardActionButtons>
+                              <CardAction onClick={() => this.openLessonPage(_id)}>See Details</CardAction>
+                              <CardAction tag="a" href={registerLink} target="_blank">Register</CardAction>
+                            </CardActionButtons>
+
+                          </CardActions>
+                         
+                        </Card>
 		        		</div>
+                        </GridCell>
 		        	)
 	        	})
 	    	}
+            </Grid>
 	        	
 	        
 	   
