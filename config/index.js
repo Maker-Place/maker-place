@@ -1,4 +1,4 @@
 module.exports = {
-	MONGODB_URI: 'mongodb://localhost/maker-scraper'
+	MONGODB_URI: 'mongodb://localhost/makerplace'
 };
   

@@ -28,6 +28,7 @@ import {
   Link
 } from 'react-router-dom';
 import sanitizeHtml from 'sanitize-html';
+import { IconToggle } from 'rmwc/IconToggle';
 import Calendar from '../Calendar/Calendar';
 import './LessonsPage.css';
 
@@ -52,22 +53,37 @@ class LessonsPage extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-      
+      this.getLessonData(this.parseSlug(newProps.match.params.category));
+    }
+
+    parseSlug(slug) {
       String.prototype.replaceAll = function(search, replacement) { 
           var target = this; 
           return target.replace(new RegExp(search, 'g'), replacement); 
       };
-      let category = newProps.match.params.category.replaceAll("_", " ")
+      let category = slug.replaceAll("_", " ")
       category = category.replaceAll("&","&amp;");
-
-      this.getLessonData(category);
+      return category;
     }
 
     componentDidMount() {
         //if there's a category, get the lessons
         if (this.props.match.params.category) {
-          this.getLessonData(this.props.match.params.category);
+          this.getLessonData(this.parseSlug(this.props.match.params.category));
         }
+    }
+    handleFavorite = favoriteid => {
+      
+      API.addFavorite(favoriteid)
+      .then(response => {
+
+        if (!response.data) {
+          console.log("you're not logged in");
+        } else { 
+          console.log("favorited");
+        }
+      })
+      .catch(err => console.log(err));
     }
 
   // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
@@ -112,10 +128,15 @@ class LessonsPage extends Component {
             <CardAction>Bookmark</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <CardAction
-              iconToggle
-              on={{label: 'Remove from favorites', content: 'favorite'}}
+            <IconToggle 
+              on={{label: 'Remove from favorites', content: 'favorite' }}
               off={{label: 'Add to favorites', content: 'favorite_border'}}
+              onChange={(checked) => {
+                  if (checked.detail.isOn) {
+                    this.handleFavorite(_id);
+                  }
+                }
+              }
             />
             <CardAction icon use="share" />
             <CardAction icon use="more_vert" />

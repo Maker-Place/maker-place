@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import axios from 'axios';
 
 // import './Login.css';
@@ -55,11 +55,16 @@ class Login extends Component {
                 <label htmlFor="password">Password</label>
                 <input type="password" className="form-control" name="password" onChange={this.handleInputChange} value={this.state.password} required />
               </div>
-              <button type="submit" className="btn btn-primary">LogIn</button>
-              <br></br>
-              {/* <Link to="/register">
-                <button className="btn btn-secondary">Register</button>
-              </Link> */}
+              <div className="row">
+                <div className="col">
+                  <button type="submit" className="btn btn-primary">LogIn</button>
+                </div>
+                <div className="col mr-auto text-right">
+                  <Link to="/register">
+                    <button className="btn btn-secondary">Register</button>
+                  </Link>
+                </div>
+              </div>
             </form>
           </div>
         </div>

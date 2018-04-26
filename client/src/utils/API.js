@@ -20,6 +20,12 @@ export default {
 
   getTools: function(data) {
     return axios.get("/api/tools");
+  },
+  addFavorite: function(favoriteid) {
+    return axios.post("/api/user/favorite", {class:favoriteid})
+  },
+  getFavorites: function(userid) {
+    return axios.get("/api/user/favorite/" + userid);
   }
 
 };
