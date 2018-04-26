@@ -9,6 +9,18 @@ import {
   GridTileTitle,
   GridTileTitleSupportText
 } from 'rmwc/GridList';
+import { Grid, GridCell } from 'rmwc/Grid';
+import {
+  Card,
+  CardPrimaryAction,
+  CardMedia,
+  CardAction,
+  CardActions,
+  CardActionButtons,
+  CardActionIcons
+} from 'rmwc/Card';
+import { Typography } from 'rmwc/Typography';
+import Button from 'rmwc/Button';
 import API from '../../utils/API';
 import {
   BrowserRouter as Router,
@@ -18,6 +30,7 @@ import {
 import sanitizeHtml from 'sanitize-html';
 import Calendar from '../Calendar/Calendar';
 import './LessonsPage.css';
+
 
 class LessonsPage extends Component {
     constructor(props) {
@@ -64,7 +77,7 @@ class LessonsPage extends Component {
     history.push(path);
   }
 
-  renderClassTile = (lesson) => { 
+  renderClassTile = (lesson) => {
     // deconstruct the data 
     let { _id, title, startTime, startDate, description } = lesson; 
     // since the api returns scraped data that still includes html
@@ -78,24 +91,38 @@ class LessonsPage extends Component {
     });
 
     return ( 
-      // link to /lessons/:id 
-      <Link to={"/lesson/" + _id} key={_id}> 
-        <GridTile className="LessonTile"> 
-          <GridTilePrimary> 
-            <GridTilePrimaryContent> 
-              <div 
-                dangerouslySetInnerHTML={{__html: clean_description}}
-              />
-            </GridTilePrimaryContent> 
-          </GridTilePrimary> 
-          <GridTileSecondary theme="text-primary-on-primary"> 
-            <GridTileTitle>{title}</GridTileTitle> 
-            <GridTileTitleSupportText>{startDate} {startTime}</GridTileTitleSupportText> 
-          </GridTileSecondary> 
-        </GridTile> 
-      </Link> 
-    ); 
-  } 
+
+      <Card style={{width: '21rem'}}>
+        <CardPrimaryAction>
+          <div style={{padding: '0 1rem 1rem 1rem'}}>
+            <Typography use="title" tag="h2">{title}</Typography>
+            <Typography
+              use="subheading1"
+              tag="h3"
+              theme="text-secondary-on-background"
+              style={{marginTop: '-1rem'}}
+            >
+              {startDate + startTime}
+            </Typography>
+          </div>
+        </CardPrimaryAction>
+        <CardActions>
+          <CardActionButtons>
+            <CardAction>Read</CardAction>
+            <CardAction>Bookmark</CardAction>
+          </CardActionButtons>
+          <CardActionIcons>
+            <CardAction
+              iconToggle
+              on={{label: 'Remove from favorites', content: 'favorite'}}
+              off={{label: 'Add to favorites', content: 'favorite_border'}}
+            />
+            <CardAction icon use="share" />
+            <CardAction icon use="more_vert" />
+          </CardActionIcons>
+        </CardActions>
+      </Card>
+  )}; 
 
 
     renderCategoryTile = (category) => {
@@ -129,22 +156,18 @@ class LessonsPage extends Component {
         let categories = this.props.categories ? this.props.categories.map(this.renderCategoryTile) : "";
         return (
             <div className="LessonsPage">
+             <div className="lessons-image">
                 <Calendar lessons={this.state.lessons}/>
-                <h2>Here are all the classes!</h2>
-                
-                <GridList
-                  tileGutter1={true}
-                  headerCaption={false}
-                  twolineCaption={true}
-                  withIconAlignStart={false}
-                  tileAspect="1x1"
-                >
-                {/* if there are lessons, show the lessons, otherwise show the categories */}
-                {this.state.lessons.length ? tiles : categories}
-          
-                </GridList>
 
+                <Grid fixedColumnWidth='false' align='right'>
+                  <GridCell span="4">
 
+                    {/* if there are lessons, show the lessons, otherwise show the categories */}
+                    {this.state.lessons.length ? tiles : categories}
+              
+                  </GridCell>
+                </Grid>
+             </div>
             </div>
         );
     }
