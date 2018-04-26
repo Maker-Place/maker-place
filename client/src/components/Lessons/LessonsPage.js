@@ -39,22 +39,37 @@ class LessonsPage extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-      
+      this.getLessonData(this.parseSlug(newProps.match.params.category));
+    }
+
+    parseSlug(slug) {
       String.prototype.replaceAll = function(search, replacement) { 
           var target = this; 
           return target.replace(new RegExp(search, 'g'), replacement); 
       };
-      let category = newProps.match.params.category.replaceAll("_", " ")
+      let category = slug.replaceAll("_", " ")
       category = category.replaceAll("&","&amp;");
-
-      this.getLessonData(category);
+      return category;
     }
 
     componentDidMount() {
         //if there's a category, get the lessons
         if (this.props.match.params.category) {
-          this.getLessonData(this.props.match.params.category);
+          this.getLessonData(this.parseSlug(this.props.match.params.category));
         }
+    }
+    handleFavorite = favoriteid => {
+      
+      API.addFavorite(favoriteid)
+      .then(response => {
+
+        if (!response.data) {
+          console.log("you're not logged in");
+        } else { 
+          console.log("favorited");
+        }
+      })
+      .catch(err => console.log(err));
     }
 
   // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
@@ -79,21 +94,24 @@ class LessonsPage extends Component {
 
     return ( 
       // link to /lessons/:id 
-      <Link to={"/lesson/" + _id} key={_id}> 
-        <GridTile className="LessonTile"> 
-          <GridTilePrimary> 
-            <GridTilePrimaryContent> 
-              <div 
-                dangerouslySetInnerHTML={{__html: clean_description}}
-              />
-            </GridTilePrimaryContent> 
-          </GridTilePrimary> 
-          <GridTileSecondary theme="text-primary-on-primary"> 
-            <GridTileTitle>{title}</GridTileTitle> 
-            <GridTileTitleSupportText>{startDate} {startTime}</GridTileTitleSupportText> 
-          </GridTileSecondary> 
-        </GridTile> 
-      </Link> 
+      <div className="relative">
+        <Link to={"/lesson/" + _id} key={_id}> 
+          <GridTile className="LessonTile"> 
+            <GridTilePrimary> 
+              <GridTilePrimaryContent> 
+                <div 
+                  dangerouslySetInnerHTML={{__html: clean_description}}
+                />
+              </GridTilePrimaryContent> 
+            </GridTilePrimary> 
+            <GridTileSecondary theme="text-primary-on-primary"> 
+              <GridTileTitle>{title}</GridTileTitle> 
+              <GridTileTitleSupportText>{startDate} {startTime}</GridTileTitleSupportText>
+            </GridTileSecondary> 
+          </GridTile> 
+        </Link>
+        <button className="btn btn-dark btn-favorite border-white" onClick={() => this.handleFavorite(_id)}>Favorite</button>
+      </div>
     ); 
   } 
 

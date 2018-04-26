@@ -69,5 +69,15 @@ module.exports = {
     //check if logged in and then run the next function
     passport.authenticate('local')(req,res,next);
 
- } // Finish
+ },
+ favorite: (req, res) => {
+    // runs if the user is authenticated
+    // find the user by id and add the class id to their favorites
+   User.findOneAndUpdate({_id:req.user._id}, { $push: { favorites: req.body.class } }, { new: true })
+    .then(function(user) {
+      // If the User was updated successfully, send it back to the client
+      res.json(user);
+    })
+    .catch(err => console.log(err))
+ }
 };

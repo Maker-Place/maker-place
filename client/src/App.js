@@ -89,9 +89,9 @@ class App extends Component {
     // if the auth data has been returned we can render the component or redirect
     // otherwise return null until the state gets updated, which triggers a rerender
     if (!loading) {
-        return (<Route {...rest} render={(props) => (
+        return (<Route  render={(props) => (
           this.state.loggedin === true
-            ? <Component {...props} />
+            ? <Component {...props} {...rest}/>
             : <Redirect to={{
                 pathname: '/login'
               }} />
@@ -128,7 +128,7 @@ class App extends Component {
                 <Route path="/lesson/:id" component={LessonPage} />
                 <Route path="/lessons/:category" component={LessonsPage} />
                 {/* why not have this under /categories/:category and have a CategoryPage */}
-                <this.PrivateRoute loading={this.state.loading} path="/dashboard" component={Dashboard} />
+                <this.PrivateRoute loading={this.state.loading} user={this.state.user} path="/dashboard" component={Dashboard} />
                 <Route path="/memberships" component={MembershipsPage} />
                 
                 <Route path="/tools" component={ToolList} />
