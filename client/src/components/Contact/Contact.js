@@ -44,8 +44,16 @@ class Contact extends Component {
 
   render() {
     return (
+      <div className="contact-body">
+      <ul className="About-head-content-list">
+<div className="About-head-content-p">
+        <li>The Maker Place is a shared woodshop offering Memberships and classes.
+            We offer a variety of classes/workshops covering many techniques and intrests.
+            We also offer month to month or year long Memberships.
+            make our shop your daily studio. Not sure how to start first ? </li>
+</div>
+        </ul>
         <div className="container">
-        <h1 className="brand"><span> ( MP ) </span> Maker Place</h1>
         <div className="wrapper animated bounceInLeft">
           <div className="company-info">
             <h3>Maker Place</h3>
@@ -85,6 +93,7 @@ class Contact extends Component {
             </form>
           </div>
         </div>
+      </div>
       </div>
     )
   }

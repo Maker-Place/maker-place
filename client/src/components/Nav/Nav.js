@@ -22,9 +22,7 @@ const Nav = props => (
 
        <ul className="navbar-nav mr-auto">
 
-         <li className="nav-item" data-toggle="collapse"  data-target="#navbarColor01">
-           <Link className="nav-link" to="/About">About Us</Link>
-         </li>
+        
          <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Classes
@@ -59,7 +57,9 @@ const Nav = props => (
          <li className="nav-item">
            <Link className="nav-link" to="/dashboard">Dashboard</Link>
          </li>
-
+         <li className="nav-item" data-toggle="collapse"  data-target="#navbarColor01">
+           <Link className="nav-link" to="/About">Contact Us</Link>
+         </li>
        </ul>
        {/* <form className="form-inline my-2 my-lg-0"> */}
        
