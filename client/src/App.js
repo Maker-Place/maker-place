@@ -17,7 +17,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import SocialLogin from './components/SocialLogin/SocialLogin' ;
 import Dashboard from "./components/Dashboard/Dashboard";
-
+import Contact from "./components/Contact/Contact";
 import Nav from './components/Nav/';
 import Calendar from './components/Calendar/Calendar.js';
 import './App.css';
@@ -112,16 +112,16 @@ class App extends Component {
 
             
             <div>
-              <Nav categories={this.state.categories} loggedin={this.state.loggedin} checkLoggedIn={this.checkLoggedIn}/ >
+              <Nav categories={this.state.categories} loggedin={this.state.loggedin} checkLoggedIn={this.checkLoggedIn }/>
               <div className="mainContent">
                 <Switch>
 
-                  <Route exact path="/" component={HomePage}/>
+                  <Route exact path="/" component={HomePage} />
                 {/*have to use render function instead of component to pass props with react router*/}
                   <Route exact path="/lessons" render={(props) => <LessonsPage/>} />
                   <Route exact path="/login" render={(props) => <Login checkLoggedIn={this.checkLoggedIn} setUser={this.setUser} /> } />
                   <Route exact path="/register" component={Register} />
-                
+                  <Route path="/About" component={Contact} />
                   <Route path="/lesson/:id" component={LessonPage} />
                   <Route path="/lessons/:category" component={LessonsPage} />
                   {/* why not have this under /categories/:category and have a CategoryPage */}
