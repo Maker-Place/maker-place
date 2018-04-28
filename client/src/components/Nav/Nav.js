@@ -58,7 +58,7 @@ const Nav = props => (
            <Link className="nav-link" to="/dashboard">Dashboard</Link>
          </li>
          <li className="nav-item" data-toggle="collapse"  data-target="#navbarColor01">
-           <Link className="nav-link" to="/About">Contact Us</Link>
+           <Link className="nav-link" to="/About">About Us</Link>
          </li>
        </ul>
        {/* <form className="form-inline my-2 my-lg-0"> */}

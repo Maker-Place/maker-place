@@ -55,21 +55,20 @@ class ToolList extends Component {
     return (
       <div className="col-4">
         <Button
-          color="dark" 
+          color="grey" 
           size="lrg" 
           onClick={()=>{this.toggle(toggleAttr)}} 
           style={{
-            marginTop: '10px',
+            marginTop: '50px',
             marginBottom: '3rem',
-            marginLeft: '10px'
           }}
         >
-          <h3>{title}</h3>
+          <h5>{title}</h5>
         </Button>
         <Collapse isOpen={isOpen}>
           {tools.map(tool => {
             return (
-              <div style={{marginLeft: '10px'}}>
+              <div style={{marginLeft: ''}}>
                   <div>
                     <p>{tool.tool_name}</p>
                   </div>
@@ -106,12 +105,12 @@ class ToolList extends Component {
 
    // I had Tools Below div className
    return(
+
       <div className="toollist-page">
         <div className="toollist-image">
           <div className="toollist-text">
             <div className="toollist-header">
               <div className="toollist-title">
-               
               </div>
             </div>
             
@@ -161,6 +160,7 @@ class ToolList extends Component {
           </div>
         </div>
       </div>
+  
     )
   };
 };
