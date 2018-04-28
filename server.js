@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 })
 //server.js
 
-app.use(express.static(path.join(__dirname,'/public')));
+// app.use(express.static(path.join(__dirname,'/public')));
 // passport config
 require('./config/passport')(passport);
 app.use(require('./routes/')); // main routes
