@@ -12,7 +12,9 @@ const PORT = process.env.PORT || 3001;
 
 const {MONGODB_URI} = require('./config/');
 //'mongodb://heroku_tb6dcfcz:h647rilmvc2kg3t4rcnr824u2h@ds161026.mlab.com:61026/heroku_tb6dcfcz';
-
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 require('./libs/db-connection');
 
 // Configure body parser for AJAX requests
@@ -50,9 +52,7 @@ app.use(require('./routes/')); // main routes
 
 // Serve up static assets
 //we need to use the next line to push the app in heroku
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-}
+
 
 // Start the API server
 server.listen(PORT, function () {
