@@ -185,7 +185,7 @@ class LessonsPage extends Component {
                 <Grid>
                   <GridCell span="12">
                     <h1 className="mb-4">Class Calendar: <span dangerouslySetInnerHTML={{__html: sanitize(this.state.category)}}></span></h1>
-                    {/*<Calendar lessons={this.state.lessons}/>*/}
+                    <Calendar lessons={this.state.lessons}/>
                   </GridCell>
 
                     {/* if there are lessons, show the lessons, otherwise show the categories */}
