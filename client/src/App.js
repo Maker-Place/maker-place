@@ -117,7 +117,7 @@ class App extends Component {
 
                   <Route exact path="/" component={HomePage} />
                 {/*have to use render function instead of component to pass props with react router*/}
-                  <Route exact path="/lessons" render={(props) => <LessonsPage/>} />
+                  {/*<Route exact path="/lessons" render={(props) => <LessonsPage/>} />*/}
                   <Route exact path="/login" render={(props) => <Login checkLoggedIn={this.checkLoggedIn} setUser={this.setUser} /> } />
                   <Route exact path="/register" component={Register} />
                   <Route path="/About" component={Contact} />
