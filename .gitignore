@@ -63,3 +63,5 @@ client/src/components/Lessons/LessonsPage\.css
 client/src/App\.css
 
 client/src/components/About/About\.css
+
+client/build/
