@@ -8,7 +8,6 @@ import {
 
 // Pages used in routes
 import HomePage from './components/Home/HomePage.js';
-import About from './components/About/About.js';
 import LessonsPage from './components/Lessons/LessonsPage.js';
 import LessonPage from './components/Lesson/LessonPage';
 import MembershipsPage from './components/Memberships/MembershipsPage';
