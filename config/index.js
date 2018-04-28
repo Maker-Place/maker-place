@@ -1,4 +1,4 @@
 module.exports = {
-	MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost/makerplace'
+	MONGODB_URI: process.env.MONGODB_URI || "mongodb://localhost/makerplace"
 };
   
