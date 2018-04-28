@@ -130,7 +130,7 @@ class App extends Component {
                   
                   <Route path="/tools" component={ToolList} />
                   <Route path="/Error" component={NotFound} />
-                  <Route path="/About" component={About} />
+
                   <Route component={NotFound} />
                 </Switch>
               </div>

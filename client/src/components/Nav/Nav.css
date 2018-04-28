@@ -19,7 +19,8 @@ img {
 nav.navbar {
   position: absolute;
   width: 100%;
-  z-index: 100; }
+  z-index: 100;
+  min-height: 80px; }
   nav.navbar .navbar-brand {
     max-width: 50%;
     width: 200px; }

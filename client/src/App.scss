@@ -1,5 +1,6 @@
 body {
   min-width: 350px;
+  font-family: Roboto;
 }
 .App {
   text-align: center;
@@ -25,7 +26,7 @@ body {
   font-size: large;
 }
 .mainContent {
-  padding-top: 80px;
+  padding-top: 78px;
   position: relative;
 }
 
@@ -36,8 +37,8 @@ body {
 
 
 :root {
-  --mdc-theme-primary: #a4c83a;
-  --mdc-theme-secondary: #red;
-    --mdc-theme-background: #eee;
+  --mdc-theme-primary: #333;
+  --mdc-theme-secondary: #a4c83a;
+    --mdc-theme-background: white;
     --mdc-theme-text-secondary-on-background: #555;
 }

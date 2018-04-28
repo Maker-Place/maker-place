@@ -31,7 +31,7 @@ class Calendar extends Component {
 		}
 
 		var settings = {
-			EventClick: (path) => {
+			EventClick: (event, path) => {
 				this.props.history.push(path)
 			}
 		};

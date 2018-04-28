@@ -1,5 +1,6 @@
 import API from '../../utils/API';
 import React, { Component } from 'react';
+import sanitize from '../Sanitize.js';
 
 // edit css for this page here :'./LessonPage.scss'
 import './LessonPage.css';
@@ -31,7 +32,7 @@ export default class LessonPage extends Component {
                     <h2> {this.state.lesson.title}</h2>
                     <div>Category: {this.state.lesson.category}</div>
 
-                    <div dangerouslySetInnerHTML={{__html: this.state.lesson.description}}></div>
+                    <div dangerouslySetInnerHTML={{__html: sanitize(this.state.lesson.description)}}></div>
                     <img src={this.state.lesson.image_url} alt="default"/>
                     <div>Start Date: {this.state.lesson.startDate} </div>
 

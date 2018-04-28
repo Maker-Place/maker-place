@@ -13,6 +13,7 @@ import {
 import { Grid, GridCell } from 'rmwc/Grid';
 import { Typography } from 'rmwc/Typography';
 import './Dashboard.css';
+import sanitize from '../Sanitize.js';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -46,61 +47,49 @@ class Dashboard extends Component {
     }
 
 	render() {
-	    return(<div>
+	    return(
+      <div>
+        <Grid>
+          <GridCell span="12">
+            <h1>Hi {this.props.user.name}</h1>
+            <h2>Here are your favorites</h2>
+          </GridCell>
 
-	        <Grid>
-                <GridCell span="12">
-                    <h1>Hi {this.props.user.name}</h1>
-                    <h2>Here are your favorites</h2>
+          {
+            this.state.favorites.map(lesson => {
+              let {_id, classTimes, startDate, startTime, title, registerLink} = lesson;
+
+              return(
+                <GridCell span="4">
+                    <Card key={lesson._id} className="classCard" tag="Link" to="/" theme="primary" stroked="true" >
+                      <div className="cardContent">
+                        <Typography use="title" tag="h2" dangerouslySetInnerHTML={{__html: sanitize(title)}}></Typography>
+                        <Typography
+                          // use="subheading1"
+                          tag="ul"
+                          theme="text-secondary-on-background">
+                          {classTimes.length ? (
+                             classTimes.map(time => (<li>{time}</li>))
+                          ) : 
+                          (
+                              <li>{startDate}, {startTime}</li>
+                          )}
+                        </Typography>                           
+                      </div>
+                      <CardActions>
+                        <CardActionButtons>
+                          <CardAction onClick={() => this.openLessonPage(_id)}>See Details</CardAction>
+                          <CardAction tag="a" href={registerLink} target="_blank">Register</CardAction>
+                        </CardActionButtons>
+                      </CardActions>
+                    </Card>
                 </GridCell>
-      
-	        {
-	        	this.state.favorites.map(lesson => {
-                    let {_id, classTimes, startDate, startTime, title, registerLink} = lesson;
-
-		        	return(
-                        <GridCell span="4">
-		        		<div key={lesson._id}>
-                        <Card className="classCard" tag="Link" to="/" theme="primary" stroked="true" >
-         
-                            
-                            <div className="cardContent">
-                              <Typography use="title" tag="h2">{title}</Typography>
-                              <Typography
-                                // use="subheading1"
-                                tag="ul"
-                                theme="text-secondary-on-background">
-                                {classTimes.length ? (
-                                   classTimes.map(time => (<li>{time}</li>))
-                                ) : 
-                                (
-                                    <li>{startDate}, {startTime}</li>
-                                )}
-
-                              </Typography>
-                             
-                            </div>
-               
-                          <CardActions>
-                            <CardActionButtons>
-                              <CardAction onClick={() => this.openLessonPage(_id)}>See Details</CardAction>
-                              <CardAction tag="a" href={registerLink} target="_blank">Register</CardAction>
-                            </CardActionButtons>
-
-                          </CardActions>
-                         
-                        </Card>
-		        		</div>
-                        </GridCell>
-		        	)
-	        	})
-	    	}
-            </Grid>
-	        	
-	        
-	   
-	    </div>)
-	}
+              )
+            })
+          }
+        </Grid>
+      </div>)
+}
 }
 export default withRouter(Dashboard);
 

@@ -27,10 +27,10 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import sanitizeHtml from 'sanitize-html';
 import { IconToggle } from 'rmwc/IconToggle';
 import Calendar from '../Calendar/Calendar';
 import './LessonsPage.css';
+import sanitize from '../Sanitize.js';
 
 
 class LessonsPage extends Component {
@@ -63,6 +63,7 @@ class LessonsPage extends Component {
       };
       let category = slug.replaceAll("_", " ")
       category = category.replaceAll("&","&amp;");
+      this.setState({category});
       return category;
     }
 
@@ -87,48 +88,51 @@ class LessonsPage extends Component {
     }
 
   // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
-  openLessonPage = (lesson) => {
-    let { history } = this.props;
-    let path = `/lessons/${lesson.title}`;
-    history.push(path);
-  }
+    openLessonPage = (lesson) => {
+        console.log(lesson);
+        let { history } = this.props;
+        let path = `/lesson/${lesson}`;
+        history.push(path);
+    }
+    
 
   renderClassTile = (lesson) => {
     // deconstruct the data 
-    let { _id, title, startTime, startDate, description } = lesson; 
+    let { _id, title, startTime, startDate, description, classTimes, registerLink } = lesson; 
     // since the api returns scraped data that still includes html
     // markup, we want to make sure we're sanitizing it prior to
     // rendering it
-    let clean_description = sanitizeHtml(description, {
-      allowedTags: ['p', 'a'],
-      allowedAttributes: {
-        a: ['href', 'target']
-      }
-    });
+    let clean_description = sanitize(description);
 
     return ( 
 
-      <Card style={{width: '21rem'}}>
-        <CardPrimaryAction>
-          <div style={{padding: '0 1rem 1rem 1rem'}}>
-            <Typography use="title" tag="h2">{title}</Typography>
+      <GridCell span="4">
+
+      <Card>
+        <CardPrimaryAction onClick={() => this.openLessonPage(_id)}>
+          <div style={{padding: '1rem 1rem 1rem 1rem'}}>
+            <Typography use="title" tag="h2" dangerouslySetInnerHTML={{__html: sanitize(title)}}></Typography>
             <Typography
-              use="subheading1"
-              tag="h3"
-              theme="text-secondary-on-background"
-              style={{marginTop: '-1rem'}}
-            >
-              {startDate + startTime}
+              // use="subheading1"
+              tag="ul"
+              theme="text-secondary-on-background">
+              {classTimes.length ? (
+                 classTimes.map(time => (<li>{time}</li>))
+              ) : 
+              (
+                  <li>{startDate}, {startTime}</li>
+              )}
             </Typography>
           </div>
         </CardPrimaryAction>
         <CardActions>
           <CardActionButtons>
-            <CardAction>Read</CardAction>
-            <CardAction>Bookmark</CardAction>
+           <CardAction onClick={() => this.openLessonPage(_id)}>See Details</CardAction>
+            <CardAction tag="a" href={registerLink} target="_blank">Register</CardAction>
           </CardActionButtons>
           <CardActionIcons>
-            <IconToggle 
+            <IconToggle
+              theme="secondary"
               on={{label: 'Remove from favorites', content: 'favorite' }}
               off={{label: 'Add to favorites', content: 'favorite_border'}}
               onChange={(checked) => {
@@ -138,11 +142,11 @@ class LessonsPage extends Component {
                 }
               }
             />
-            <CardAction icon use="share" />
-            <CardAction icon use="more_vert" />
+          
           </CardActionIcons>
         </CardActions>
       </Card>
+      </GridCell>
   )}; 
 
 
@@ -178,15 +182,15 @@ class LessonsPage extends Component {
         return (
             <div className="LessonsPage">
              <div className="lessons-image">
-                <Calendar lessons={this.state.lessons}/>
-
-                <Grid fixedColumnWidth='false' align='right'>
-                  <GridCell span="4">
+                <Grid>
+                  <GridCell span="12">
+                    <h1 className="mb-4">Class Calendar: <span dangerouslySetInnerHTML={{__html: sanitize(this.state.category)}}></span></h1>
+                    <Calendar lessons={this.state.lessons}/>
+                  </GridCell>
 
                     {/* if there are lessons, show the lessons, otherwise show the categories */}
                     {this.state.lessons.length ? tiles : categories}
               
-                  </GridCell>
                 </Grid>
              </div>
             </div>

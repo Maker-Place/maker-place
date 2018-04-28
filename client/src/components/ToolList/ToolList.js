@@ -55,7 +55,6 @@ class ToolList extends Component {
     return (
       <div className="col-4">
         <Button
-          color="grey" 
           size="lrg" 
           onClick={()=>{this.toggle(toggleAttr)}} 
           style={{
@@ -63,7 +62,7 @@ class ToolList extends Component {
             marginBottom: '3rem',
           }}
         >
-          <h5>{title}</h5>
+          {title}
         </Button>
         <Collapse isOpen={isOpen}>
           {tools.map(tool => {

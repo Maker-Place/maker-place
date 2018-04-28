@@ -1,7 +1,7 @@
 .LessonsPage {
   
   .lessons-image {
-    background-image: url(maker-place-workshop1.jpg);
+
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
@@ -27,4 +27,11 @@
 	position: absolute;
 	left: 5px;
 	bottom: 5px;
+}
+
+.cld-main {
+  width: 100%;
+  .cld-day {
+    min-height: 80px;
+  }
 }
