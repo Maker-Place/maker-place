@@ -5,8 +5,8 @@ const HomePage = () => (
     <div className="homepage">
         <div className="homepage-image">
           <div className="homepage-text">
-            <h1>Maker Place</h1>
-            <p>your place to make it...</p>
+
+            <img src={process.env.PUBLIC_URL + '/assets/images/MakerPlace_VersionB.svg'} alt=""/>
           </div>
         </div>
     </div>

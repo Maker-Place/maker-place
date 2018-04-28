@@ -24,7 +24,7 @@ class Logout extends Component {
   render() {
     return (
 
-         <Button onClick={this.handleLogout}> Log out </Button>
+         <Button theme="text-hint-on-background" onClick={this.handleLogout}> Log out </Button>
 
     )
   }

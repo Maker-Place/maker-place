@@ -11,22 +11,29 @@
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  margin-top: -80px; }
+  margin-top: -78px;
+  display: block; }
 
 /* Place text in the middle of the image */
 .homepage-text {
-  text-align: center;
+  text-align: left;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, calc(-50% + 50px));
-  color: white; }
+  left: 5%;
+  font-family: Roboto;
+  transform: translate(0%, calc(-50% + 50px));
+  color: white;
+  text-shadow: -3px 3px 5px black;
+  max-width: 100%;
+  min-width: 50%; }
+  .homepage-text h1 {
+    font-size: 100px; }
+  .homepage-text img {
+    filter: drop-shadow(3px 3px 5px black);
+    width: 100%; }
 
 .hero {
-  /* Sizing */
-  /* Flexbox stuff */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Text styles */
   text-align: center; }

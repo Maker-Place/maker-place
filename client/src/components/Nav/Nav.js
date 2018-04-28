@@ -67,7 +67,7 @@ const Nav = props => (
         props.loggedin 
         ? (<Logout checkLoggedIn={props.checkLoggedIn}/>)
         : (<Link to="/login">
-             <Button>Log In</Button>
+             <Button theme="text-hint-on-background">Log In</Button>
            </Link>)
         
         }

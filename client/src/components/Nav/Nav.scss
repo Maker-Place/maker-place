@@ -25,6 +25,7 @@ nav.navbar {
 	position: absolute;
 	width: 100%;
 	z-index: 100;
+	min-height: 80px;
 	.navbar-brand {
 		max-width: 50%;
 		width: 200px;
