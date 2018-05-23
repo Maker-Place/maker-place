@@ -1,37 +1,40 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import {
-  GridList,
-  GridTile,
-  GridTilePrimary,
-  GridTilePrimaryContent,
-  GridTileSecondary,
-  GridTileTitle,
-  GridTileTitleSupportText
-} from 'rmwc/GridList';
-import { Grid, GridCell } from 'rmwc/Grid';
-import {
-  Card,
-  CardPrimaryAction,
-  CardMedia,
-  CardAction,
-  CardActions,
-  CardActionButtons,
-  CardActionIcons
-} from 'rmwc/Card';
-import { Typography } from 'rmwc/Typography';
-import Button from 'rmwc/Button';
+
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+
+import Divider from '@material-ui/core/Divider';
+
+import { withTheme } from '@material-ui/core/styles';
+
 import API from '../../utils/API';
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom';
-import { IconToggle } from 'rmwc/IconToggle';
+
 import Calendar from '../Calendar/Calendar';
 import './LessonsPage.css';
 import sanitize from '../Sanitize.js';
 
+import { withStyles } from 'material-ui/styles';
+
+  let styles = {
+     green: {
+      backgroundColor: "green"
+     }
+    };
 
 class LessonsPage extends Component {
     constructor(props) {
@@ -41,7 +44,8 @@ class LessonsPage extends Component {
         lessons: [],
         categories: []
       };
-    }
+    };
+
 
     getLessonData = (category) => {
       API.getLessonsByCategory(category).
@@ -95,58 +99,57 @@ class LessonsPage extends Component {
         history.push(path);
     }
     
-
   renderClassTile = (lesson) => {
+    const {classes} = this.props;
+    const {theme} = this.props;
+    const primaryText = theme.palette.text.primary;
+    styles = {
+      primaryTextee: {
+        backgroundColor: theme.palette.primary.main,
+      }
+    };
+
+    
     // deconstruct the data 
     let { _id, title, startTime, startDate, description, classTimes, registerLink } = lesson; 
     // since the api returns scraped data that still includes html
-    // markup, we want to make sure we're sanitizing it prior to
-    // rendering it
+    // markup, we want to make sure we're sanitizing it prior to rendering it
     let clean_description = sanitize(description);
 
     return ( 
 
-      <GridCell span="4">
+      <Grid item xs={4}>
+      {theme.palette.primary.main}
 
-      <Card>
-        <CardPrimaryAction onClick={() => this.openLessonPage(_id)}>
-          <div style={{padding: '1rem 1rem 1rem 1rem'}}>
-            <Typography use="title" tag="h2" dangerouslySetInnerHTML={{__html: sanitize(title)}}></Typography>
-            <Typography
-              // use="subheading1"
-              tag="ul"
-              theme="text-secondary-on-background">
-              {classTimes.length ? (
-                 classTimes.map(time => (<li>{time}</li>))
-              ) : 
-              (
-                  <li>{startDate}, {startTime}</li>
-              )}
-            </Typography>
-          </div>
-        </CardPrimaryAction>
-        <CardActions>
-          <CardActionButtons>
-           <CardAction onClick={() => this.openLessonPage(_id)}>See Details</CardAction>
-            <CardAction tag="a" href={registerLink} target="_blank">Register</CardAction>
-          </CardActionButtons>
-          <CardActionIcons>
-            <IconToggle
-              theme="secondary"
-              on={{label: 'Remove from favorites', content: 'favorite' }}
-              off={{label: 'Add to favorites', content: 'favorite_border'}}
+        <Card >
+          <CardContent classes={{root: classes.green}} onClick={() => this.openLessonPage(_id)}>
+              <Typography color="secondary" gutterBottom variant="title" component="h2" dangerouslySetInnerHTML={{__html: sanitize(title)}}></Typography>
+              <Typography>
+                {classTimes.length ? (
+                   classTimes.map(time => (<p>{time}</p>))
+                ) : 
+                (
+                    <span>{startDate}, {startTime}</span>
+                )}
+              </Typography>
+             </CardContent>
+             <Divider/>
+          <CardActions>
+            <Button color="secondary" onClick={() => this.openLessonPage(_id)}>See Details</Button>
+            <Button href={registerLink} target="_blank">Register</Button>
+            <Checkbox 
               onChange={(checked) => {
-                  if (checked.detail.isOn) {
-                    this.handleFavorite(_id);
+                    this.handleFavorite(_id); 
                   }
                 }
-              }
+              icon={<FavoriteBorder />} 
+              checkedIcon={<Favorite />} 
+              value="checkedH" 
             />
-          
-          </CardActionIcons>
-        </CardActions>
+      
+          </CardActions>
       </Card>
-      </GridCell>
+      </Grid>
   )}; 
 
 
@@ -155,17 +158,9 @@ class LessonsPage extends Component {
         return (
         
           <Link to={"/lessons/" + category} key={category}>
-            <GridTile className="LessonTile">
-             <GridTilePrimary>
-                <GridTilePrimaryContent>
-                  <img src={image_url} alt="test" />
-                  
-                </GridTilePrimaryContent>
-              </GridTilePrimary>
-              <GridTileSecondary theme="text-primary-on-primary">
-                <GridTileTitle>{category}</GridTileTitle>
-              </GridTileSecondary>
-            </GridTile>
+            <Grid item className="LessonTile">
+              {category}
+            </Grid>
           </Link>
         )
     }
@@ -180,23 +175,23 @@ class LessonsPage extends Component {
         let tiles = this.state.lessons.map(this.renderClassTile);
         let categories = this.props.categories ? this.props.categories.map(this.renderCategoryTile) : "";
         return (
-            <div className="LessonsPage">
-             <div className="lessons-image">
-                <Grid>
-                  <GridCell span="12">
+            <div className="wrap">
+
+                <Grid container spacing={16}>
+                  {/*<GridCell span="12">
                     <h1 className="mb-4">Class Calendar: <span dangerouslySetInnerHTML={{__html: sanitize(this.state.category)}}></span></h1>
                     <Calendar lessons={this.state.lessons}/>
-                  </GridCell>
+                  </GridCell>*/}
 
                     {/* if there are lessons, show the lessons, otherwise show the categories */}
                     {this.state.lessons.length ? tiles : categories}
               
                 </Grid>
-             </div>
+ 
             </div>
         );
     }
 
 }
 
-export default withRouter(LessonsPage);
+export default withStyles(styles)(withTheme()(LessonsPage));

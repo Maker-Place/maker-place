@@ -7,6 +7,10 @@ import {
 } from 'react-router-dom';
 
 // Pages used in routes
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import red from '@material-ui/core/colors/red';
+
+
 import HomePage from './components/Home/HomePage.js';
 import LessonsPage from './components/Lessons/LessonsPage.js';
 import LessonPage from './components/Lesson/LessonPage';
@@ -23,6 +27,7 @@ import './App.css';
 import NotFound from './components/ErrorPage/NotFound.js';
 import API from './utils/API';
 
+
 import {
   Collapse,
   Button,
@@ -31,6 +36,22 @@ import {
 } from 'reactstrap';
 
 import axios from 'axios';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {main:'#75af2a'},
+    secondary: {main:'#212121'},
+    error: red,
+    danger: red
+  },
+  overrides: {
+    MuiCardContent: {
+      root: {
+        // background: 'red',
+      }
+    }
+  }
+});
 
 
 // This is where you define top level routes in the app mapping some url to a given page component
@@ -106,37 +127,37 @@ class App extends Component {
 
   render() {
     return(
-      <div>
-        <Router>
-
-            
-            <div>
-              <Nav categories={this.state.categories} loggedin={this.state.loggedin} checkLoggedIn={this.checkLoggedIn }/>
-              <div className="mainContent">
-                <Switch>
-
-                  <Route exact path="/" component={HomePage} />
-                {/*have to use render function instead of component to pass props with react router*/}
-                  <Route exact path="/lessons" render={(props) => <LessonsPage/>} />
-                  <Route exact path="/login" render={(props) => <Login checkLoggedIn={this.checkLoggedIn} setUser={this.setUser} /> } />
-                  <Route exact path="/register" component={Register} />
-                  <Route path="/About" component={Contact} />
-                  <Route path="/lesson/:id" component={LessonPage} />
-                  <Route path="/lessons/:category" component={LessonsPage} />
-                  {/* why not have this under /categories/:category and have a CategoryPage */}
-                  <this.PrivateRoute loading={this.state.loading} user={this.state.user} path="/dashboard" component={Dashboard} />
-                  <Route path="/memberships" component={MembershipsPage} />
-                  
-                  <Route path="/tools" component={ToolList} />
-                  <Route path="/Error" component={NotFound} />
-
-                  <Route component={NotFound} />
-                </Switch>
-              </div>
-
-          </div>
-        </Router>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div>
+          <Router>
+              <div>
+                <Nav categories={this.state.categories} loggedin={this.state.loggedin} checkLoggedIn={this.checkLoggedIn }/>
+                <div className="mainContent">
+                  <Switch>
+        
+                    <Route exact path="/" component={HomePage} />
+                  {/*have to use render function instead of component to pass props with react router*/}
+                    <Route exact path="/lessons" render={(props) => <LessonsPage/>} />
+                    <Route exact path="/login" render={(props) => <Login checkLoggedIn={this.checkLoggedIn} setUser={this.setUser} /> } />
+                    <Route exact path="/register" component={Register} />
+                    <Route path="/About" component={Contact} />
+                    <Route path="/lesson/:id" component={LessonPage} />
+                    <Route path="/lessons/:category" component={LessonsPage} />
+                    {/* why not have this under /categories/:category and have a CategoryPage */}
+                    <this.PrivateRoute loading={this.state.loading} user={this.state.user} path="/dashboard" component={Dashboard} />
+                    <Route path="/memberships" component={MembershipsPage} />
+                    
+                    <Route path="/tools" component={ToolList} />
+                    <Route path="/Error" component={NotFound} />
+        
+                    <Route component={NotFound} />
+                  </Switch>
+                </div>
+        
+            </div>
+          </Router>
+        </div>
+      </MuiThemeProvider>
     )
   }
 }
