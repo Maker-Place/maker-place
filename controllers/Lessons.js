@@ -8,9 +8,14 @@ module.exports = {
   findByCategory: function(req, res) {
 
     let category = req.params.category;
-    db.Class.find({"category":category})
+    db.Category.find({"name":category}).limit(1)
+    .populate('lessons')
     .then(function(data) {
-      res.json(data);
+      console.log("data");
+      console.log(data[0]);
+      console.log("data.lessons");
+      console.log(data[0].lessons);
+      res.json(data[0].lessons);
     })
   },  
 
@@ -23,7 +28,7 @@ module.exports = {
   },
 
   findAllCategories: function(req, res) {
-    db.Class.distinct('category')
+    db.Category.distinct('name')
     .then(categories => res.json(categories))
     .catch(err => res.json(err));
   },

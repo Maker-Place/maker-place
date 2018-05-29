@@ -33,8 +33,11 @@ import { withStyles } from 'material-ui/styles';
   let styles = {
      green: {
       backgroundColor: "green"
+     },
+     marginTop: {
+      marginTop: '32px'
      }
-    };
+  };
 
 class LessonsPage extends Component {
     constructor(props) {
@@ -42,9 +45,21 @@ class LessonsPage extends Component {
       this.state = {
         done: '',
         lessons: [],
-        categories: []
+        categories: [],
+        favorites: []
       };
     };
+
+    getFavorites = () => {
+      console.log("getting favorites");
+      //this.props.user._id
+      // "5ae0d443de7ce7ddcbc53a2d"
+      API.getFavoriteIDs()
+      .then(response => {
+        this.setState({favorites: response.data})
+      })
+      .catch(err => console.log(err));
+    }
 
 
     getLessonData = (category) => {
@@ -76,6 +91,7 @@ class LessonsPage extends Component {
         if (this.props.match.params.category) {
           this.getLessonData(this.parseSlug(this.props.match.params.category));
         }
+        this.getFavorites();
     }
     handleFavorite = favoriteid => {
       
@@ -90,6 +106,13 @@ class LessonsPage extends Component {
       })
       .catch(err => console.log(err));
     }
+    handleUnfavorite = favoriteid => {
+      API.removeFavorite(favoriteid)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(err => console.log(err));
+    }
 
   // https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56
     openLessonPage = (lesson) => {
@@ -101,15 +124,8 @@ class LessonsPage extends Component {
     
   renderClassTile = (lesson) => {
     const {classes} = this.props;
-    const {theme} = this.props;
-    const primaryText = theme.palette.text.primary;
-    styles = {
-      primaryTextee: {
-        backgroundColor: theme.palette.primary.main,
-      }
-    };
 
-    
+
     // deconstruct the data 
     let { _id, title, startTime, startDate, description, classTimes, registerLink } = lesson; 
     // since the api returns scraped data that still includes html
@@ -118,12 +134,15 @@ class LessonsPage extends Component {
 
     return ( 
 
-      <Grid item xs={4}>
-      {theme.palette.primary.main}
+      <Grid item xs={12} sm={6} md={4}>
+
 
         <Card >
-          <CardContent classes={{root: classes.green}} onClick={() => this.openLessonPage(_id)}>
+          <CardContent 
+            //onClick={() => this.openLessonPage(_id)}
+          >
               <Typography color="secondary" gutterBottom variant="title" component="h2" dangerouslySetInnerHTML={{__html: sanitize(title)}}></Typography>
+
               <Typography>
                 {classTimes.length ? (
                    classTimes.map(time => (<p>{time}</p>))
@@ -135,22 +154,33 @@ class LessonsPage extends Component {
              </CardContent>
              <Divider/>
           <CardActions>
-            <Button color="secondary" onClick={() => this.openLessonPage(_id)}>See Details</Button>
+            <Button color="primary" onClick={() => this.openLessonPage(_id)}>See Details</Button>
             <Button href={registerLink} target="_blank">Register</Button>
-            <Checkbox 
-              onChange={(checked) => {
-                    this.handleFavorite(_id); 
+            <Checkbox color="primary"
+              onChange={(event, checked) => {
+                    if (checked) {
+                      this.handleFavorite(_id);
+                      let favs = this.state.favorites;
+                      favs.push(_id);
+                      this.setState({favorites: favs});
+                    } else {
+                      this.handleUnfavorite(_id);
+                      let favs = this.state.favorites;
+                      favs.splice(favs.indexOf(_id));
+                      this.setState({favorites: favs});
+                    }
                   }
-                }
+              }
               icon={<FavoriteBorder />} 
               checkedIcon={<Favorite />} 
-              value="checkedH" 
+              value="checked"
+              checked={this.state.favorites.includes(_id)}
             />
       
           </CardActions>
       </Card>
       </Grid>
-  )}; 
+    )}; 
 
 
     renderCategoryTile = (category) => {
@@ -176,22 +206,21 @@ class LessonsPage extends Component {
         let categories = this.props.categories ? this.props.categories.map(this.renderCategoryTile) : "";
         return (
             <div className="wrap">
-
                 <Grid container spacing={16}>
-                  {/*<GridCell span="12">
-                    <h1 className="mb-4">Class Calendar: <span dangerouslySetInnerHTML={{__html: sanitize(this.state.category)}}></span></h1>
-                    <Calendar lessons={this.state.lessons}/>
-                  </GridCell>*/}
+                  <Grid item xs={12}>
+                    <h1 className="mb-4"><span dangerouslySetInnerHTML={{__html: sanitize(this.state.category)}}></span></h1>
+                  </Grid>
 
-                    {/* if there are lessons, show the lessons, otherwise show the categories */}
-                    {this.state.lessons.length ? tiles : categories}
-              
+                  {/* if there are lessons, show the lessons, otherwise show the categories */}
+                  {this.state.lessons.length ? tiles : categories}
+
+                  <Grid item xs={12} style={styles.marginTop}>
+                    {/* <Calendar lessons={this.state.lessons}/> */}
+                  </Grid>
                 </Grid>
- 
             </div>
         );
     }
-
 }
 
-export default withStyles(styles)(withTheme()(LessonsPage));
+export default withStyles(styles)(LessonsPage);
