@@ -24,8 +24,14 @@ export default {
   addFavorite: function(favoriteid) {
     return axios.post("/api/user/favorite", {class:favoriteid})
   },
+  removeFavorite: function(favoriteid) {
+    return axios.put("/api/user/favorite", {class: favoriteid})
+  },
   getFavorites: function(userid) {
     return axios.get("/api/user/favorite/" + userid);
+  },
+  getFavoriteIDs: function() {
+    return axios.get("/api/user/favorite/");
   }
 
 };

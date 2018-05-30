@@ -70,7 +70,7 @@ module.exports = {
     passport.authenticate('local')(req,res,next);
 
  },
- favorite: (req, res) => {
+ addFavorite: (req, res) => {
     // runs if the user is authenticated
     // find the user by id and add the class id to their favorites
    User.findOneAndUpdate({_id:req.user._id}, { $push: { favorites: req.body.class } }, { new: true })
@@ -79,5 +79,16 @@ module.exports = {
       res.json(user);
     })
     .catch(err => console.log(err))
+ },
+ getFavorites: (req, res) => {
+    res.json(req.user.favorites);
+ },
+ deleteFavorite: (req, res) => {
+  
+  User.findOneAndUpdate( {_id:req.user._id}, { $pull: {favorites: req.body.class} }, {new: true})
+  .then(function(user) {
+    res.json(user);
+  })
+  .catch(err => console.log(err))
  }
 };

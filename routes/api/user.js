@@ -22,7 +22,9 @@ router.post('/register', userController.postRegister);
 //check if logged in, and return true if so
 router.post('/login', userController.postLogin, (req,res) => res.json(req.user));
 router.get('/favorite/:id', (req,res) => favoriteController.getFavorites(req,res));
-router.post('/favorite', ensureAuthenticated, (req,res) => userController.favorite(req, res));
+router.post('/favorite', ensureAuthenticated, (req,res) => userController.addFavorite(req, res));
+router.get('/favorite', ensureAuthenticated, (req,res) => userController.getFavorites(req, res));
+router.put('/favorite', ensureAuthenticated, (req,res) => userController.deleteFavorite(req,res));
 
 router.post('/send', (req, res) => {
     const output = `

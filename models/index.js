@@ -4,6 +4,7 @@ module.exports = {
   Class: require("./Class"),
   Membership: require("./Membership"),
   ToolList: require("./ToolList"),
-  User: require("./User")
+  User: require("./User"),
+  Category: require("./Category")
 
 };
